@@ -20,10 +20,12 @@ public class EnemyStats : MonoBehaviour
         {
             Die();
         }
+        Debug.Log("Enemy took " + damage + " damage, and has " + currentHealth + " remaining health");
     }
 
     private void Die()
     {
+        Debug.Log("Enemy died");
         Destroy(gameObject, 0.5f);
     }
 }

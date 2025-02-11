@@ -10,5 +10,7 @@ public class SingleAttacker : AbstractAttacker
         ProjectileController projectileController = Instantiate<ProjectileController>(projectilePrefab);
         projectileController.transform.position = pSource.position;
         projectileController.SetVelocity(projectileVelocity);
+        
+        
     }
 }

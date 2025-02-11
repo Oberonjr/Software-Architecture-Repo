@@ -5,22 +5,26 @@ using UnityEngine;
 
 public class ProjectileType : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision col)
+    [HideInInspector]public int damage;
+
+    public void OnTriggerEnter(Collider col)
     {
+        Debug.Log("Collided");
         GameObject collided = col.gameObject;
         if (collided.CompareTag("Enemy"))
         {
-            EnemyContact();
+            EnemyContact(collided);
         }
-        else if (collided.CompareTag("Ground"))
+        else if (collided.CompareTag("Path"))
         {
             GroundContact();
         }
     }
-
-    public virtual void EnemyContact()
+    
+    
+    public virtual void EnemyContact(GameObject enemy)
     {
-        
+       
     }
 
     public virtual void GroundContact()
