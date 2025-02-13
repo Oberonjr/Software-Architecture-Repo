@@ -11,20 +11,35 @@ public class EnemyCheck : MonoBehaviour
     [HideInInspector] public GameObject lastEnemy;
     [HideInInspector] public GameObject closeEnemy;
 
-    private List<GameObject> enemiesInRange;
+    private List<EnemyStats> enemiesInRange;
 
     private void Start()
     {
-        enemiesInRange = new List<GameObject>();
+        enemiesInRange = new List<EnemyStats>();
+
+        EventBus<EnemyDeathEvent>.OnEvent += UpdateEnemyList;
     }
 
+    private void OnDestroy()
+    {
+        EventBus<EnemyDeathEvent>.OnEvent -= UpdateEnemyList;
+    }
+
+    void UpdateEnemyList(EnemyDeathEvent e)
+    {
+        if (enemiesInRange.Contains(e.enemy))
+        {
+            enemiesInRange.Remove(e.enemy);
+        }
+    }
+    
     private void OnTriggerEnter(Collider col)
     {
         GameObject entObj = col.gameObject;
         if (entObj.CompareTag("Enemy"))
         {
             enemyCount++;
-            enemiesInRange.Add(entObj);
+            enemiesInRange.Add(entObj.GetComponent<EnemyStats>());
             UpdateClosestEnemy();
         }
     }
@@ -35,7 +50,7 @@ public class EnemyCheck : MonoBehaviour
         if (entObj.CompareTag("Enemy"))
         {
             enemyCount--;
-            enemiesInRange.Remove(entObj);
+            enemiesInRange.Remove(entObj.GetComponent<EnemyStats>());
             UpdateClosestEnemy();
         }
     }
@@ -47,9 +62,9 @@ public class EnemyCheck : MonoBehaviour
             enemyInRange = true;
             for (int i = 0; i < enemiesInRange.Count; i++)
             {
-                firstEnemy = enemiesInRange[0];
+                firstEnemy = enemiesInRange[0].transform.gameObject;
                 //Debug.Log(firstEnemy);
-                lastEnemy = enemiesInRange[i];
+                lastEnemy = enemiesInRange[i].transform.gameObject;
 
             }
         }
@@ -67,14 +82,14 @@ public class EnemyCheck : MonoBehaviour
             closeEnemy = null;
             float closestDistance = float.MaxValue;
 
-            foreach (GameObject enemy in enemiesInRange)
+            foreach (EnemyStats enemy in enemiesInRange)
             {
                 float distance = Vector3.Distance(transform.position, enemy.transform.position);
 
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
-                    closeEnemy = enemy;
+                    closeEnemy = enemy.transform.gameObject;
                 }
             }
         }

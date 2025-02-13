@@ -26,6 +26,7 @@ public class EnemyStats : MonoBehaviour
     private void Die()
     {
         Debug.Log("Enemy died");
+        EventBus<EnemyDeathEvent>.Publish(new EnemyDeathEvent(this));
         Destroy(gameObject, 0.5f);
     }
 }
