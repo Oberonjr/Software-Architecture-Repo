@@ -29,9 +29,7 @@ public class TowerController : MonoBehaviour
 
     void Start()
     {
-        
         InvokeRepeating(nameof(AttackRepeating), 0f, attackInterval);
-        
     }
 
     private void Update()
@@ -73,7 +71,7 @@ public class TowerController : MonoBehaviour
     {
         if (target != null)
         {
-            attacker.Attack(transform, target);
+            attacker.Attack(transform, target.position);
         }
     }
 }

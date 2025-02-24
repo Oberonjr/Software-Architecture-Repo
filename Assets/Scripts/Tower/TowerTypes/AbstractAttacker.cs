@@ -21,5 +21,5 @@ public abstract class AbstractAttacker : MonoBehaviour
         projectilePrefab.gameObject.GetComponent<ProjectileType>().damage = projectileDamage;
     }
     
-    public abstract void Attack(Transform pSource, Transform pTarget);
+    public abstract void Attack(Transform pSource, Vector3 pTarget);
 }
