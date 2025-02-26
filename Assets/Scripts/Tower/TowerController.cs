@@ -72,7 +72,7 @@ public class TowerController : MonoBehaviour
             List<Vector3> targetPositions = new List<Vector3>();
             foreach (Transform targetLocation in target)
             {
-                targetPositions.Add(targetLocation.position);
+                if(targetLocation != null) targetPositions.Add(targetLocation.position);
             }
             _attacker.Attack(transform, towerStats, targetPositions);    
             
