@@ -3,23 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbstractAttacker : MonoBehaviour
+public abstract class AbstractAttacker : ScriptableObject
 {
-    //protected Transform targetTransform;
-
-    [SerializeField]
-    protected float projectileSpeed = 2f;
     
-    [SerializeField]
-    protected int projectileDamage = 1;
-
-    [SerializeField]
-    protected ProjectileController projectilePrefab;
-
-    public void Start()
+    public Stats GetStats(TowerStats towerStats)
     {
-        projectilePrefab.gameObject.GetComponent<ProjectileType>().damage = projectileDamage;
+        Stats stats = new Stats();
+        stats.towerAttackInterval = towerStats.stats.towerAttackInterval;
+        stats.towerDamage = towerStats.stats.towerDamage;
+        stats.projectileSpeed = towerStats.stats.projectileSpeed;
+        return stats;
     }
-    
-    public abstract void Attack(Transform pSource, Vector3 pTarget);
+
+    public abstract void Attack(Transform pSource, TowerStats tower, List<Vector3> pTargetPosition = null);
+
 }

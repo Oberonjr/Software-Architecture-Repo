@@ -6,72 +6,76 @@ using UnityEngine;
 
 public class TowerController : MonoBehaviour
 {
-    [SerializeField] private int TargetingType = 1;
-    [SerializeField] private float attackInterval = 1f;
-    
-    
-    [SerializeField] private AbstractAttacker attacker;
-    [SerializeField] private EnemyCheck _enemyCheck;
-    [SerializeField] private Transform shootingPoint;
-    
-    
-    
-    private const int FIRST = 1;
-    private const int LAST = 2;
-    private const int CLOSE = 3;
+    private enum TargetingType
+    {
+        FIRST,
+        LAST,
+        CLOSE,
+        ALL
+    }
 
-    private Transform firstEnemy;
-    private Transform lastEnemy;
-    private Transform closeEnemy;
-
-    private Transform target;
+    [SerializeField] private TowerStats towerStats;
+    [SerializeField] private TargetingType _currentTargeting;
     
+    [SerializeField] private AbstractAttacker _attacker;
+    [SerializeField] private Transform _shootingPoint;
+    
+    //[SerializeField] 
+    private EnemyCheck _enemyCheck;
+
+    private List<Transform> target = new List<Transform>();
 
     void Start()
     {
-        InvokeRepeating(nameof(AttackRepeating), 0f, attackInterval);
+        InvokeRepeating(nameof(AttackRepeating), 0f, towerStats.stats.towerAttackInterval);
+        _enemyCheck = GetComponentInChildren<EnemyCheck>();
+        _enemyCheck.Range.radius = towerStats.stats.towerRange;
+        _enemyCheck.OnEnemyEnterRange += UpdateEnemy;
     }
 
-    private void Update()
+    void OnDestroy()
     {
-        if (_enemyCheck.enemyInRange)
-        {
-            UpdateEnemy();
-            SelectTarget(TargetingType);
-        }
+        _enemyCheck.OnEnemyEnterRange -= UpdateEnemy;
     }
-
-    private void SelectTarget(int targetMode)
+    
+    private void UpdateEnemy(Transform firstEnemy, Transform lastEnemy, Transform closestEnemy, List<EnemyStats> allEnemies)
     {
-        switch (targetMode)
+        target.Clear();
+        switch (_currentTargeting)
         {
-            case FIRST:
-                target=(firstEnemy);
+            case TargetingType.FIRST:
+                target.Add(firstEnemy.transform);
                 break;
-            case LAST:
-                target=(lastEnemy);
+            case TargetingType.LAST:
+                target.Add(lastEnemy.transform);
                 break;
-            case CLOSE:
-                target=(closeEnemy);
+            case TargetingType.CLOSE:
+                target.Add(closestEnemy.transform);
+                break;
+            case TargetingType.ALL:
+                foreach (EnemyStats enemy in allEnemies)
+                {
+                    target.Add(enemy.transform);
+                }
                 break;
             default:
-                target=(firstEnemy);
+                target.Add(firstEnemy.transform);
                 break;
         }
-    }
-
-    private void UpdateEnemy()
-    {
-        firstEnemy = _enemyCheck.firstEnemy.transform;
-        lastEnemy = _enemyCheck.lastEnemy.transform;
-        closeEnemy = _enemyCheck.closeEnemy.transform;
+        
     }
     
     private void AttackRepeating()
     {
-        if (target != null)
+        if (target.Count > 0)
         {
-            attacker.Attack(transform, target.position);
+            List<Vector3> targetPositions = new List<Vector3>();
+            foreach (Transform targetLocation in target)
+            {
+                targetPositions.Add(targetLocation.position);
+            }
+            _attacker.Attack(transform, towerStats, targetPositions);    
+            
         }
     }
 }

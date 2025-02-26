@@ -9,7 +9,7 @@ public class ProjectileType : MonoBehaviour
 
     public void OnTriggerEnter(Collider col)
     {
-        Debug.Log("Collided");
+        Debug.Log("Collided with: " + col.gameObject.name);
         GameObject collided = col.gameObject;
         if (collided.CompareTag("Enemy"))
         {

@@ -1176,25 +1176,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &722719129 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2400077404798270757, guid: 869bf5aed88b40b4aa76348460207200, type: 3}
-  m_PrefabInstance: {fileID: 6224820422628825948}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &722719133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722719129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e443eba5a480df43ba18ac764af3556, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileSpeed: 150
-  projectilePrefab: {fileID: 820722713747080634, guid: cf379a3bf2bf6be43be40eb3e79cc98b, type: 3}
 --- !u!1 &739012607
 GameObject:
   m_ObjectHideFlags: 0
@@ -3195,15 +3176,45 @@ PrefabInstance:
     - target: {fileID: 8621927286148086148, guid: 869bf5aed88b40b4aa76348460207200, type: 3}
       propertyPath: attacker
       value: 
-      objectReference: {fileID: 722719133}
+      objectReference: {fileID: 0}
+    - target: {fileID: 8621927286148086148, guid: 869bf5aed88b40b4aa76348460207200, type: 3}
+      propertyPath: _attacker
+      value: 
+      objectReference: {fileID: 11400000, guid: 6a3367fa966874743ac17e42dbc2541a, type: 2}
+    - target: {fileID: 8621927286148086148, guid: 869bf5aed88b40b4aa76348460207200, type: 3}
+      propertyPath: _shootingPoint
+      value: 
+      objectReference: {fileID: 6224820422628825949}
+    - target: {fileID: 8621927286148086148, guid: 869bf5aed88b40b4aa76348460207200, type: 3}
+      propertyPath: towerStats.stats.towerRange
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 8621927286148086148, guid: 869bf5aed88b40b4aa76348460207200, type: 3}
+      propertyPath: towerStats.stats.towerDamage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8621927286148086148, guid: 869bf5aed88b40b4aa76348460207200, type: 3}
+      propertyPath: towerStats.stats.projectileSpeed
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8621927286148086148, guid: 869bf5aed88b40b4aa76348460207200, type: 3}
+      propertyPath: towerStats.stats.towerAttackSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8621927286148086148, guid: 869bf5aed88b40b4aa76348460207200, type: 3}
+      propertyPath: towerStats.stats.towerAttackInterval
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2400077404798270757, guid: 869bf5aed88b40b4aa76348460207200, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 722719133}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 869bf5aed88b40b4aa76348460207200, type: 3}
+--- !u!4 &6224820422628825949 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7843156579742147472, guid: 869bf5aed88b40b4aa76348460207200, type: 3}
+  m_PrefabInstance: {fileID: 6224820422628825948}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8332456932022262332
 PrefabInstance:
   m_ObjectHideFlags: 0

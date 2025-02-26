@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Event{}
@@ -54,4 +55,26 @@ public class EnemyDeathEvent: Event
         enemy = pEnemy;
     }
 }
+
+//Enemy check events
+// public class UpdateEnemyTargets : Event
+// {
+//     public GameObject firstEnemy;
+//     public GameObject lastEnemy;
+//     public GameObject closestEnemy;
+//
+//     public UpdateEnemyTargets(GameObject pFirstEnemy = null, GameObject pLastEnemy  = null, GameObject pClosestEnemy = null)
+//     {
+//         firstEnemy = pFirstEnemy;
+//         lastEnemy = pLastEnemy;
+//         closestEnemy = pClosestEnemy;
+//     }
+//     
+//     public List<EnemyStats> allEnemies;
+//     public UpdateEnemyTargets(List<EnemyStats> pAllEnemies)
+//     {
+//         allEnemies = pAllEnemies;
+//     }
+// }
+
 

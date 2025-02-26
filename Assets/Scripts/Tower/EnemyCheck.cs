@@ -7,16 +7,19 @@ public class EnemyCheck : MonoBehaviour
 {
     [HideInInspector] public int enemyCount;
     [HideInInspector] public bool enemyInRange;
-    [HideInInspector] public GameObject firstEnemy;
-    [HideInInspector] public GameObject lastEnemy;
-    [HideInInspector] public GameObject closeEnemy;
+    [HideInInspector] public SphereCollider Range;
 
+    public event System.Action<Transform, Transform, Transform, List<EnemyStats>> OnEnemyEnterRange; 
+    
+    private GameObject firstEnemy;
+    private GameObject lastEnemy;
+    private GameObject closeEnemy;
     private List<EnemyStats> enemiesInRange;
 
-    private void Start()
+    private void Awake()
     {
         enemiesInRange = new List<EnemyStats>();
-
+        Range = GetComponent<SphereCollider>();
         EventBus<EnemyDeathEvent>.OnEvent += UpdateEnemyList;
     }
 
@@ -63,23 +66,20 @@ public class EnemyCheck : MonoBehaviour
             for (int i = 0; i < enemiesInRange.Count; i++)
             {
                 firstEnemy = enemiesInRange[0].transform.gameObject;
-                //Debug.Log(firstEnemy);
                 lastEnemy = enemiesInRange[i].transform.gameObject;
-
+                closeEnemy = UpdateClosestEnemy();
             }
+            OnEnemyEnterRange?.Invoke(firstEnemy.transform, lastEnemy.transform, closeEnemy.transform, enemiesInRange);
         }
         else
         {
             enemyInRange = false;
         }
-        UpdateClosestEnemy();
     }
 
-    private void UpdateClosestEnemy()
+    private GameObject UpdateClosestEnemy()
     {
-        if (enemiesInRange.Count > 0)
-        {
-            closeEnemy = null;
+            GameObject closestEnemy = null;
             float closestDistance = float.MaxValue;
 
             foreach (EnemyStats enemy in enemiesInRange)
@@ -89,13 +89,9 @@ public class EnemyCheck : MonoBehaviour
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
-                    closeEnemy = enemy.transform.gameObject;
+                    closestEnemy = enemy.transform.gameObject;
                 }
             }
-        }
-        else
-        {
-            closeEnemy = null;
-        }
+            return closestEnemy;
     }
 }
