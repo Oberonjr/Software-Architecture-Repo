@@ -8,11 +8,12 @@ public class SingleAttacker : AbstractAttacker
     [SerializeField]
     protected ProjectileController projectilePrefab;
     
-    public override void Attack(Transform pSource, TowerStats stats, List<Vector3> pTargetPositions)
+    public override void Attack(Transform pSource, TowerStats stats, List<GameObject> pTargetPositions)
     {
         Stats workingStats = GetStats(stats);
-        foreach (Vector3 v in pTargetPositions)
+        foreach (GameObject GO in pTargetPositions)
         {
+            Vector3 v = GO.transform.position;
             SingleAttack(pSource, workingStats, v);
         }
     }

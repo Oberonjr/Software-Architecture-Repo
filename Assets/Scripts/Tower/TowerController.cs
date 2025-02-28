@@ -69,10 +69,10 @@ public class TowerController : MonoBehaviour
     {
         if (target.Count > 0)
         {
-            List<Vector3> targetPositions = new List<Vector3>();
+            List<GameObject> targetPositions = new List<GameObject>();
             foreach (Transform targetLocation in target)
             {
-                if(targetLocation != null) targetPositions.Add(targetLocation.position);
+                if(targetLocation != null) targetPositions.Add(targetLocation.gameObject);
             }
             _attacker.Attack(transform, towerStats, targetPositions);    
             

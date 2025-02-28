@@ -15,6 +15,6 @@ public abstract class AbstractAttacker : ScriptableObject
         return stats;
     }
 
-    public abstract void Attack(Transform pSource, TowerStats tower, List<Vector3> pTargetPosition = null);
+    public abstract void Attack(Transform pSource, TowerStats tower, List<GameObject> pTargetPosition = null);
 
 }

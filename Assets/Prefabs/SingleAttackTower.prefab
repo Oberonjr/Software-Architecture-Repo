@@ -152,9 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyCount: 0
   enemyInRange: 0
-  firstEnemy: {fileID: 0}
-  lastEnemy: {fileID: 0}
-  closeEnemy: {fileID: 0}
+  Range: {fileID: 0}
 --- !u!1 &2400077404798270757
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +165,7 @@ GameObject:
   - component: {fileID: 585592675673762339}
   - component: {fileID: 8621927286148086148}
   m_Layer: 0
-  m_Name: Tower
+  m_Name: SingleAttackTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,11 +227,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ff71af2f510a7468389b82ab988c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetingType: 1
-  attackInterval: 1
-  attacker: {fileID: 1202269534563170793, guid: 2545f5b8e07445b44890010c876e877a, type: 3}
-  _enemyCheck: {fileID: 6853074505430972359}
-  shootingPoint: {fileID: 7843156579742147472}
+  towerStats:
+    stats:
+      towerDamage: 2
+      towerRange: 22
+      towerAttackInterval: 1.5
+      projectileSpeed: 60
+  _currentTargeting: 0
+  _attacker: {fileID: 11400000, guid: 6a3367fa966874743ac17e42dbc2541a, type: 2}
+  _shootingPoint: {fileID: 7843156579742147472}
 --- !u!1 &2915974009070881423
 GameObject:
   m_ObjectHideFlags: 0
