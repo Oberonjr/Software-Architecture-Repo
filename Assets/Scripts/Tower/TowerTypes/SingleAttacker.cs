@@ -33,7 +33,8 @@ public class SingleAttacker : AbstractAttacker
         projectileController.SetVelocity(projectileVelocity);
         if (projectileController.transform.TryGetComponent<ProjectileType>(out ProjectileType projectileType))
         {
-            projectileType.damage = stats.towerDamage;   
+            projectileType.damage = stats.towerDamage;
+            projectileType.pierce = stats.projectilePierce;
         }
         else
         {

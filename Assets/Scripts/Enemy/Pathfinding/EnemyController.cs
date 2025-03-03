@@ -8,12 +8,13 @@ public class EnemyController : MonoBehaviour
 
     [HideInInspector]
     public GameObject target;
-    [SerializeField]
-    private float maxSpeed = 2f;
-
-    private float currentSpeed;
+    [HideInInspector]
+    public float maxSpeed = 2f;
     
-    // Start is called before the first frame update
+    private float currentSpeed;
+
+    public System.Action<Conditions> ClearSlow;
+
     void Start()
     {
         pathFinder = GetComponent<IPathFinding>();
@@ -28,7 +29,7 @@ public class EnemyController : MonoBehaviour
         ResetSpeed();
     }
 
-    public void ChangeSpeed(int modifier, float timer)
+    public void ChangeSpeed(float modifier, float timer)
     {
         currentSpeed -= modifier;
         float newSpeedTimer = timer;
@@ -45,6 +46,7 @@ public class EnemyController : MonoBehaviour
     public void ResetSpeed()
     {
         currentSpeed = maxSpeed;
+        ClearSlow?.Invoke(Conditions.SLOW);
     }
     
     void Update()

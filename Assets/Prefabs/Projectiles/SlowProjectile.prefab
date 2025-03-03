@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7227307368723224326}
   - component: {fileID: 1491399518506296502}
   - component: {fileID: 820722713747080634}
-  - component: {fileID: -5109253296637820617}
+  - component: {fileID: 5833174839249376546}
   m_Layer: 0
   m_Name: SlowProjectile
   m_TagString: Untagged
@@ -122,7 +122,7 @@ MonoBehaviour:
   timer: 5
   velocity: {x: 0, y: 0, z: 0}
   decayable: 1
---- !u!114 &-5109253296637820617
+--- !u!114 &5833174839249376546
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +131,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3407865640744548001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b59c57178a6919e46bb5d163214400e4, type: 3}
+  m_Script: {fileID: 11500000, guid: d73db59a55fe90f4ab06b979f6340720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  pierce: 0
+  applyConditions:
+  - condition: 0
+    intensity: 1
+    duration: 4

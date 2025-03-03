@@ -6,6 +6,7 @@ public class SlowProjectile : ProjectileType
 {
     public override void EnemyContact(GameObject enemy)
     {
+        base.EnemyContact(enemy);
         if (enemy.TryGetComponent(out EnemyController controller))
         {
             controller.ChangeSpeed(damage, 10f);
