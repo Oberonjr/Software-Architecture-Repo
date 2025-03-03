@@ -9,8 +9,10 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     public GameObject target;
     [SerializeField]
-    private float speed = 2f;
+    private float maxSpeed = 2f;
 
+    private float currentSpeed;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -23,11 +25,30 @@ public class EnemyController : MonoBehaviour
         {
             throw new System.Exception("No Target for the enemy!");
         }
+        ResetSpeed();
     }
 
+    public void ChangeSpeed(int modifier, float timer)
+    {
+        currentSpeed -= modifier;
+        float newSpeedTimer = timer;
+        if (newSpeedTimer > 0)
+        {
+            newSpeedTimer -= Time.deltaTime;
+        }
+        else
+        {
+            ResetSpeed();
+        }
+    }
+
+    public void ResetSpeed()
+    {
+        currentSpeed = maxSpeed;
+    }
     
     void Update()
     {
-        pathFinder.MoveTowardsTarget(target.transform.position, speed);
+        pathFinder.MoveTowardsTarget(target.transform.position, Mathf.Max(0, currentSpeed));
     }
 }

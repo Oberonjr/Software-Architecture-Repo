@@ -10,6 +10,7 @@ public struct Stats
     public float towerRange;
     public float towerAttackInterval;
     public float projectileSpeed;
+    public GameObject projectilePrefab;
 }
 
 [Serializable]

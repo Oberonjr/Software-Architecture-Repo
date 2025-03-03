@@ -5,12 +5,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SingleAttacker", menuName = "Tower Types/Single Attacker")]
 public class SingleAttacker : AbstractAttacker
 {
-    [SerializeField]
-    protected ProjectileController projectilePrefab;
+    private ProjectileController projectilePrefab;
     
     public override void Attack(Transform pSource, TowerStats stats, List<GameObject> pTargetPositions)
     {
-        Stats workingStats = GetStats(stats);
+        Stats workingStats = stats.stats;
+        if (workingStats.projectilePrefab.TryGetComponent(out ProjectileController prefabController))
+        {
+            projectilePrefab = prefabController;
+        }
+        else
+        {
+            Debug.LogWarning("ProjectileController not found");
+        }
         foreach (GameObject GO in pTargetPositions)
         {
             Vector3 v = GO.transform.position;

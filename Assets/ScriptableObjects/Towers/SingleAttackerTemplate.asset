@@ -12,7 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e443eba5a480df43ba18ac764af3556, type: 3}
   m_Name: SingleAttackerTemplate
   m_EditorClassIdentifier: 
-  projectileSpeed: 2
-  projectileDamage: 1
-  _attackInterval: 1
-  projectilePrefab: {fileID: 820722713747080634, guid: cf379a3bf2bf6be43be40eb3e79cc98b, type: 3}
+  projectilePrefab: {fileID: 820722713747080634, guid: b8350ae10e402a0468650166b642cfa4, type: 3}
