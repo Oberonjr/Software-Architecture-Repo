@@ -35,6 +35,7 @@ public class SingleAttacker : AbstractAttacker
         {
             projectileType.damage = stats.towerDamage;
             projectileType.pierce = stats.projectilePierce;
+            projectileType.applyConditions = stats.projectileConditions;
         }
         else
         {

@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class TowerController : MonoBehaviour
+public class TowerController : MonoBehaviour, IPointerClickHandler
 {
     private enum TargetingType
     {
@@ -19,15 +20,19 @@ public class TowerController : MonoBehaviour
     [SerializeField] private AbstractAttacker _attacker;
     [SerializeField] private Transform _shootingPoint;
     
-    //[SerializeField] 
     private EnemyCheck _enemyCheck;
+    private RangeIndicatorManager _rangeIndicatorManager;
 
     private List<Transform> target = new List<Transform>();
 
+    public TowerStats TowerStats {get => towerStats;}
+    
     void Start()
     {
+        //Move all this to an OnTowerPlaced() that triggers from an event
         InvokeRepeating(nameof(AttackRepeating), 0f, towerStats.stats.towerAttackInterval);
         _enemyCheck = GetComponentInChildren<EnemyCheck>();
+        _rangeIndicatorManager = GetComponentInChildren<RangeIndicatorManager>();
         _enemyCheck.Range.radius = towerStats.stats.towerRange;
         _enemyCheck.OnEnemyEnterRange += UpdateEnemy;
     }
@@ -35,6 +40,12 @@ public class TowerController : MonoBehaviour
     void OnDestroy()
     {
         _enemyCheck.OnEnemyEnterRange -= UpdateEnemy;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        EventBus<SelectTowerEvent>.Publish(new SelectTowerEvent(this));
+        _rangeIndicatorManager.ToggleRangeIndicator(this);
     }
     
     private void UpdateEnemy(Transform firstEnemy, Transform lastEnemy, Transform closestEnemy, List<EnemyStats> allEnemies)
@@ -77,4 +88,6 @@ public class TowerController : MonoBehaviour
             
         }
     }
+
+    
 }

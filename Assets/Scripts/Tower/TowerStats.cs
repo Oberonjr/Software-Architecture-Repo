@@ -11,6 +11,7 @@ public struct Stats
     public float towerAttackInterval;
     public float projectileSpeed;
     public float projectilePierce;
+    public List<ConditionParameters> projectileConditions;
     public GameObject projectilePrefab;
 }
 

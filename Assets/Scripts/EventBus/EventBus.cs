@@ -56,25 +56,15 @@ public class EnemyDeathEvent: Event
     }
 }
 
-//Enemy check events
-// public class UpdateEnemyTargets : Event
-// {
-//     public GameObject firstEnemy;
-//     public GameObject lastEnemy;
-//     public GameObject closestEnemy;
-//
-//     public UpdateEnemyTargets(GameObject pFirstEnemy = null, GameObject pLastEnemy  = null, GameObject pClosestEnemy = null)
-//     {
-//         firstEnemy = pFirstEnemy;
-//         lastEnemy = pLastEnemy;
-//         closestEnemy = pClosestEnemy;
-//     }
-//     
-//     public List<EnemyStats> allEnemies;
-//     public UpdateEnemyTargets(List<EnemyStats> pAllEnemies)
-//     {
-//         allEnemies = pAllEnemies;
-//     }
-// }
+//Tower events
+public class SelectTowerEvent : Event
+{
+    public TowerController tower;
+
+    public SelectTowerEvent(TowerController pTower)
+    {
+        tower = pTower;
+    }
+}
 
 

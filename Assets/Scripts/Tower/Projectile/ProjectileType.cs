@@ -15,8 +15,8 @@ public class ProjectileType : MonoBehaviour
 {
     [HideInInspector]public int damage;
     [HideInInspector]public float pierce;
+    [HideInInspector]public List<ConditionParameters> applyConditions;
     
-    [SerializeField] protected List<ConditionParameters> applyConditions;
 
     public void OnTriggerEnter(Collider col)
     {

@@ -25,9 +25,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - RangeIndicator
+  - Tower
+  - Path
   - 
   - 
   - 
@@ -42,4 +42,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: VFX
+    uniqueID: 1689680293
+    locked: 0
+  - name: Tower
+    uniqueID: 127985763
+    locked: 0
+  - name: Path
+    uniqueID: 400900589
     locked: 0
