@@ -19,17 +19,18 @@ public class UpgradePanelManager : MonoBehaviour
     private void Start()
     {
         EventBus<SelectTowerEvent>.OnEvent += EnableUpgradePanel;
+        EventBus<DeselectTowerEvent>.OnEvent += DisableUpgradePanel;
     }
 
     private void OnDestroy()
     {
         EventBus<SelectTowerEvent>.OnEvent -= EnableUpgradePanel;
+        EventBus<DeselectTowerEvent>.OnEvent -= DisableUpgradePanel;
     }
 
     void EnableUpgradePanel(SelectTowerEvent e)
     {
         Stats tStats = e.tower.TowerStats.stats;
-        
         upgradePanel.SetActive(true);
         towerNameText.text = e.tower.name;
         statsText.text = "Stats: \n" + "Damage: " + tStats.towerDamage + "\nRange: " + tStats.towerRange + "\nAttack interval: " + tStats.towerAttackInterval;
@@ -40,7 +41,11 @@ public class UpgradePanelManager : MonoBehaviour
          upgradeStats.text = "Upgarde stats: \n" + ...
          */
     }
-    
+
+    void DisableUpgradePanel(DeselectTowerEvent e)
+    {
+        upgradePanel.SetActive(false);
+    }
     
     
 }

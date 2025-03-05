@@ -67,4 +67,6 @@ public class SelectTowerEvent : Event
     }
 }
 
+public class DeselectTowerEvent : Event{}
+
 

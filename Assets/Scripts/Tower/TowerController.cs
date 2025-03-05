@@ -45,6 +45,10 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         EventBus<SelectTowerEvent>.Publish(new SelectTowerEvent(this));
+    }
+
+    public void ToggleRangeIndicator()
+    {
         _rangeIndicatorManager.ToggleRangeIndicator(this);
     }
     
