@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyController), typeof(EnemyDebuffManager))]
-public class EnemyStats : MonoBehaviour
+public class EnemyStats : MonoBehaviour, IDamageable
 {
     [SerializeField]private int maxHealth;
     [SerializeField]private int maxSpeed;
@@ -24,9 +24,7 @@ public class EnemyStats : MonoBehaviour
         }
     }
     
-    
-    
-    void Start()
+    void Awake()
     {
         
         _currentHealth = maxHealth;

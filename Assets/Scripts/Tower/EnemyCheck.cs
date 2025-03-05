@@ -10,6 +10,7 @@ public class EnemyCheck : MonoBehaviour
     [HideInInspector] public SphereCollider Range;
 
     public event System.Action<Transform, Transform, Transform, List<EnemyStats>> OnEnemyEnterRange; 
+    public event System.Action<Transform> OnEnemyLeaveRange; 
     
     private GameObject firstEnemy;
     private GameObject lastEnemy;
@@ -44,6 +45,7 @@ public class EnemyCheck : MonoBehaviour
             enemyCount++;
             enemiesInRange.Add(entObj.GetComponent<EnemyStats>());
             UpdateClosestEnemy();
+            
         }
     }
     
@@ -55,6 +57,7 @@ public class EnemyCheck : MonoBehaviour
             enemyCount--;
             enemiesInRange.Remove(entObj.GetComponent<EnemyStats>());
             UpdateClosestEnemy();
+            OnEnemyLeaveRange?.Invoke(entObj.transform);
         }
     }
 
@@ -69,7 +72,9 @@ public class EnemyCheck : MonoBehaviour
                 lastEnemy = enemiesInRange[i].transform.gameObject;
                 closeEnemy = UpdateClosestEnemy();
             }
+            
             OnEnemyEnterRange?.Invoke(firstEnemy.transform, lastEnemy.transform, closeEnemy.transform, enemiesInRange);
+            
         }
         else
         {

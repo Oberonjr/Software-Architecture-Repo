@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class GroundProjectile : ProjectileType
 {
-    
+    public override void GroundContact()
+    {
+        base.GroundContact();
+    }
 }

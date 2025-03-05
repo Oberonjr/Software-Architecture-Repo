@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     public GameObject target;
     [HideInInspector]
-    public float maxSpeed = 2f;
+    public float maxSpeed;
     
     private float currentSpeed;
 

@@ -68,9 +68,5 @@ public class EnemyDebuffManager: MonoBehaviour
         {
             currentConditions.Remove(condition);
         }
-        else
-        {
-            Debug.LogError("Condition not present in currentConditions list. Fix your damn code.");
-        }
     }
 }

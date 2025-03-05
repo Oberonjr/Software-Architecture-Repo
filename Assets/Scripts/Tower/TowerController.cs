@@ -23,7 +23,7 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
     private EnemyCheck _enemyCheck;
     private RangeIndicatorManager _rangeIndicatorManager;
 
-    private List<Transform> target = new List<Transform>();
+    public List<Transform> target = new List<Transform>();
 
     public TowerStats TowerStats {get => towerStats;}
     
@@ -35,11 +35,13 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
         _rangeIndicatorManager = GetComponentInChildren<RangeIndicatorManager>();
         _enemyCheck.Range.radius = towerStats.stats.towerRange;
         _enemyCheck.OnEnemyEnterRange += UpdateEnemy;
+        _enemyCheck.OnEnemyLeaveRange += RemoveEnemyTarget;
     }
 
     void OnDestroy()
     {
         _enemyCheck.OnEnemyEnterRange -= UpdateEnemy;
+        _enemyCheck.OnEnemyLeaveRange -= RemoveEnemyTarget;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -54,29 +56,33 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
     
     private void UpdateEnemy(Transform firstEnemy, Transform lastEnemy, Transform closestEnemy, List<EnemyStats> allEnemies)
     {
-        target.Clear();
         switch (_currentTargeting)
         {
             case TargetingType.FIRST:
-                target.Add(firstEnemy.transform);
+                if(!target.Contains(firstEnemy)) target.Add(firstEnemy.transform);
                 break;
             case TargetingType.LAST:
-                target.Add(lastEnemy.transform);
+                if(!target.Contains(lastEnemy)) target.Add(lastEnemy.transform);
                 break;
             case TargetingType.CLOSE:
-                target.Add(closestEnemy.transform);
+                if(!target.Contains(closestEnemy)) target.Add(closestEnemy.transform);
                 break;
             case TargetingType.ALL:
                 foreach (EnemyStats enemy in allEnemies)
                 {
-                    target.Add(enemy.transform);
+                    if(!target.Contains(enemy.transform)) target.Add(enemy.transform);
                 }
                 break;
             default:
-                target.Add(firstEnemy.transform);
+                if(!target.Contains(firstEnemy)) target.Add(firstEnemy.transform);
                 break;
         }
         
+    }
+
+    private void RemoveEnemyTarget(Transform enemy)
+    {
+        if(target.Contains(enemy)) target.Remove(enemy);
     }
     
     private void AttackRepeating()
