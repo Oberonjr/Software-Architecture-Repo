@@ -34,6 +34,7 @@ public class EnemyCheck : MonoBehaviour
         if (enemiesInRange.Contains(e.enemy))
         {
             enemiesInRange.Remove(e.enemy);
+            OnEnemyLeaveRange?.Invoke(e.enemy.transform);
         }
     }
     

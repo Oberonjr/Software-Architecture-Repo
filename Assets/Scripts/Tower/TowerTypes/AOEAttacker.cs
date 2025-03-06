@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AOEAttacker", menuName = "Tower Types/AOE Attacker")]
 public class AOEAttacker : AbstractAttacker
 {
+    private ExpandingAOE AOEeffect;
+    
     public override void Attack(Transform pSource, TowerStats tower, List<GameObject> pTargetPositions)
     {
         List<EnemyStats> enemies = new List<EnemyStats>();
@@ -24,9 +26,15 @@ public class AOEAttacker : AbstractAttacker
 
     public void AOEAttack(Transform pSource, TowerStats tower, List<EnemyStats> pTargets)
     {
-        foreach (EnemyStats e in pTargets)
+        Stats stats = tower.stats;
+        if (stats.projectilePrefab.TryGetComponent(out ExpandingAOE effect))
         {
-            e.TakeDamage(tower.stats.towerDamage);
+            AOEeffect = effect;
+            AOEeffect._parameters.expansionRadiusIncrement = stats.expandingAOEParams.expansionRadiusIncrement;
+            AOEeffect._parameters.AOEDamage = stats.towerDamage;
+            AOEeffect._parameters.maxAOERadius = stats.towerRange;
+            AOEeffect._parameters.expansionSpeed = stats.projectileSpeed;
         }
+        Instantiate<ExpandingAOE>(effect, pSource);
     }
 }

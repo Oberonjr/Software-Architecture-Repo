@@ -12,6 +12,7 @@ public struct Stats
     public float projectileSpeed;
     public float projectilePierce;
     public List<ConditionParameters> projectileConditions;
+    public ExpandingAOEParameters expandingAOEParams;
     public GameObject projectilePrefab;
 }
 

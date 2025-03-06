@@ -192,16 +192,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerStats:
     stats:
-      towerDamage: 5
+      towerDamage: 3
       towerRange: 25
-      towerAttackInterval: 7
+      towerAttackInterval: 2
       projectileSpeed: 60
       projectilePierce: 0
       projectileConditions: []
-      projectilePrefab: {fileID: 0}
+      expandingAOEParams:
+        AOEDamage: 0
+        expansionSpeed: 0
+        maxAOERadius: 5
+        expansionRadiusIncrement: 1
+      projectilePrefab: {fileID: 3407865640744548001, guid: a521ed73740b0414fa9b963a224b8516, type: 3}
   _currentTargeting: 3
   _attacker: {fileID: 11400000, guid: 75b7fe65e8122824eb9bb15097052fdf, type: 2}
   _shootingPoint: {fileID: 6758740154236526367}
+  target: []
 --- !u!1001 &2191013476251080052
 PrefabInstance:
   m_ObjectHideFlags: 0
