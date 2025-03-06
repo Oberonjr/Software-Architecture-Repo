@@ -6,9 +6,9 @@ using UnityEngine;
 [Serializable]
 public struct ExpandingAOEParameters
 {
-    //[HideInInspector]
+    [HideInInspector]
     public int AOEDamage;
-    //[HideInInspector]
+    [HideInInspector]
     public float expansionSpeed;
     public float maxAOERadius;
     public float expansionRadiusIncrement;
@@ -18,7 +18,7 @@ public struct ExpandingAOEParameters
 [RequireComponent(typeof(SphereCollider))]
 public class ExpandingAOE : ProjectileType
 {
-    //[HideInInspector]
+    [HideInInspector]
     public ExpandingAOEParameters _parameters;
 
     [SerializeField] private GameObject particleEffect;
@@ -37,6 +37,14 @@ public class ExpandingAOE : ProjectileType
         _effect = Instantiate(particleEffect, this.transform);
     }
 
+    public void SetParameters(int damage, float expansionSpeed, float maxAOERadius, float expansionRadiusIncrement)
+    {
+        _parameters.AOEDamage = damage;
+        _parameters.expansionSpeed = expansionSpeed;
+        _parameters.maxAOERadius = maxAOERadius;
+        _parameters.expansionRadiusIncrement = expansionRadiusIncrement;
+    }
+
     public override void EnemyContact(GameObject enemy)
     {
         EnemyStats stats = enemy.GetComponent<EnemyStats>();
@@ -50,11 +58,11 @@ public class ExpandingAOE : ProjectileType
         if (_collider.radius < _parameters.maxAOERadius)
         {
             _collider.radius += _parameters.expansionRadiusIncrement;
-            _effect.transform.localScale = _collider.radius * Vector3.one / 2;
+            _effect.transform.localScale = _collider.radius * Vector3.one;
         }
         else
         {
-            Destroy(this.gameObject, Mathf.Epsilon);
+            Destroy(this.gameObject, 0.5f);
         }
     }
 }

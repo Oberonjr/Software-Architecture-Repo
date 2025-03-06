@@ -82,10 +82,16 @@ MonoBehaviour:
       projectileSpeed: 60
       projectilePierce: 3
       projectileConditions: []
-      projectilePrefab: {fileID: 3407865640744548001, guid: b8350ae10e402a0468650166b642cfa4, type: 3}
+      expandingAOEParams:
+        AOEDamage: 0
+        expansionSpeed: 0
+        maxAOERadius: 0
+        expansionRadiusIncrement: 0
+      projectilePrefab: {fileID: 3407865640744548001, guid: 64ffcb2d7ac146b4fb8e72aa18392e02, type: 3}
   _currentTargeting: 0
   _attacker: {fileID: 11400000, guid: 6a3367fa966874743ac17e42dbc2541a, type: 2}
   _shootingPoint: {fileID: 7179579110732051041}
+  target: []
 --- !u!1 &4636395076873408655
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,7 +118,7 @@ Transform:
   m_GameObject: {fileID: 4636395076873408655}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.46, z: 0}
   m_LocalScale: {x: 40, y: 40, z: 40}
   m_ConstrainProportionsScale: 1
   m_Children: []

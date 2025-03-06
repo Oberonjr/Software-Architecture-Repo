@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1491399518506296502}
   - component: {fileID: 795573412217727097}
   m_Layer: 0
-  m_Name: EnergyExpandingAOE
+  m_Name: ExplosionExpandingAOE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,8 +70,8 @@ MonoBehaviour:
   pierce: 0
   applyConditions: []
   _parameters:
-    AOEDamage: 0
-    expansionSpeed: 0
-    maxAOERadius: 0
-    expansionRadiusIncrement: 0
-  particleEffect: {fileID: 7314526620251459061, guid: ccf28ea29cf499744ac31bab90073aba, type: 3}
+    AOEDamage: 5
+    expansionSpeed: 60
+    maxAOERadius: 8
+    expansionRadiusIncrement: 1
+  particleEffect: {fileID: 9129328873972392542, guid: 36e0cff68ab21c2448255c2cdc26d7b8, type: 3}

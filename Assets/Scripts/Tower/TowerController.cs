@@ -94,7 +94,7 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
             {
                 if(targetLocation != null) targetPositions.Add(targetLocation.gameObject);
             }
-            _attacker.Attack(transform, towerStats, targetPositions);    
+            _attacker.Attack(_shootingPoint, towerStats, targetPositions);    
             
         }
     }

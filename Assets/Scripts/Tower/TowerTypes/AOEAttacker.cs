@@ -30,10 +30,8 @@ public class AOEAttacker : AbstractAttacker
         if (stats.projectilePrefab.TryGetComponent(out ExpandingAOE effect))
         {
             AOEeffect = effect;
-            AOEeffect._parameters.expansionRadiusIncrement = stats.expandingAOEParams.expansionRadiusIncrement;
-            AOEeffect._parameters.AOEDamage = stats.towerDamage;
-            AOEeffect._parameters.maxAOERadius = stats.towerRange;
-            AOEeffect._parameters.expansionSpeed = stats.projectileSpeed;
+            effect.SetParameters(stats.towerDamage, 
+                stats.projectileSpeed, stats.towerRange, stats.expandingAOEParams.expansionRadiusIncrement);
         }
         Instantiate<ExpandingAOE>(effect, pSource);
     }
