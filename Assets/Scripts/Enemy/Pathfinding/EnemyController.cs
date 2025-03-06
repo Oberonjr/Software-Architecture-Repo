@@ -6,7 +6,7 @@ public class EnemyController : MonoBehaviour
 {
     private IPathFinding pathFinder;
 
-    [HideInInspector]
+    //[HideInInspector]
     public GameObject target;
     [HideInInspector]
     public float maxSpeed;

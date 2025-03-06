@@ -39,8 +39,13 @@ public class SingleAttacker : AbstractAttacker
             {
                 GroundProjectile groundProjectile = projectileType as GroundProjectile;
                 groundProjectile.Explosion.SetParameters(stats.towerDamage, stats.projectileSpeed, stats.expandingAOEParams.maxAOERadius, stats.expandingAOEParams.expansionRadiusIncrement);
+                groundProjectile.Explosion.applyConditions = stats.projectileConditions;
             }
-            projectileType.applyConditions = stats.projectileConditions;
+            else
+            {
+                projectileType.applyConditions = stats.projectileConditions;
+            }
+            
         }
         else
         {

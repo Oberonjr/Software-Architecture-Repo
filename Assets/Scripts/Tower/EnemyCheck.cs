@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyCheck : MonoBehaviour
@@ -69,11 +70,11 @@ public class EnemyCheck : MonoBehaviour
             enemyInRange = true;
             for (int i = 0; i < enemiesInRange.Count; i++)
             {
-                firstEnemy = enemiesInRange[0].transform.gameObject;
-                lastEnemy = enemiesInRange[i].transform.gameObject;
-                closeEnemy = UpdateClosestEnemy();
+                
             }
-            
+            firstEnemy = enemiesInRange[0].transform.gameObject;
+            lastEnemy = enemiesInRange.Last().transform.gameObject;
+            closeEnemy = UpdateClosestEnemy();
             OnEnemyEnterRange?.Invoke(firstEnemy.transform, lastEnemy.transform, closeEnemy.transform, enemiesInRange);
             
         }
@@ -90,6 +91,7 @@ public class EnemyCheck : MonoBehaviour
 
             foreach (EnemyStats enemy in enemiesInRange)
             {
+                if (enemy == null) continue;
                 float distance = Vector3.Distance(transform.position, enemy.transform.position);
 
                 if (distance < closestDistance)

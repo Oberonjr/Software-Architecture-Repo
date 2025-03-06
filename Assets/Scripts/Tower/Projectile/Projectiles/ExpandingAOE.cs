@@ -50,6 +50,10 @@ public class ExpandingAOE : ProjectileType
         EnemyStats stats = enemy.GetComponent<EnemyStats>();
         if (_alreadyDamaged.Contains(stats)) return;
         stats.TakeDamage(_parameters.AOEDamage);
+        foreach (ConditionParameters param in applyConditions)
+        {
+            stats.ApplyCondition(param);
+        }
         _alreadyDamaged.Add(stats);
     }
     

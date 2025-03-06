@@ -13,44 +13,51 @@ public class EnemyDebuffManager: MonoBehaviour
 {
     public List<Conditions> currentConditions = new List<Conditions>();
 
-    public void ApplyCondition(EnemyStats targetStats, Conditions condition, int intensity, float duration)
+    public void ApplyCondition(EnemyStats targetStats, ConditionParameters cp)
     {
-        if (!currentConditions.Contains(condition))
+        if (!currentConditions.Contains(cp.condition))
         {
-            currentConditions.Add(condition);
-            switch (condition)
+            currentConditions.Add(cp.condition);
+            switch (cp.condition)
             {
                 case Conditions.SLOW:
-                    targetStats.EnemyController.ChangeSpeed(intensity, duration);
+                    targetStats.EnemyController.ChangeSpeed(cp.intensity, cp.duration);
                     break;
                 case Conditions.BURNING:
-                    StartCoroutine(ApplyDOT(condition, targetStats, intensity, duration));
+                    StartCoroutine(ApplyDOT(targetStats, cp));
                     break;
                 case Conditions.BLEEDING:
-                    StartCoroutine(ApplyDOT(condition, targetStats, intensity, duration));
+                    StartCoroutine(ApplyDOT(targetStats, cp));
                     break;
                 default:
                     Debug.LogError("Unknown condition. Fix your damn code");
                     break;
             }
         }
-        
-        
     }
 
-    IEnumerator ApplyDOT(Conditions condition, EnemyStats stats, int intensity, float duration, float tickInterval = 1f)
+    public void ApplyCondition(EnemyStats targetStats, Conditions condition, int intensity, float duration)
+    {
+        ConditionParameters cp = new ConditionParameters();
+        cp.condition = condition;
+        cp.intensity = intensity;
+        cp.duration = duration;
+        ApplyCondition(targetStats, cp);
+    }
+
+    IEnumerator ApplyDOT(EnemyStats stats, ConditionParameters cp, float tickInterval = 1f)
     {
         float elapsedTime = 0f;
-        while (elapsedTime < duration)
+        while (elapsedTime < cp.duration)
         {
-            stats.TakeDamage(intensity);
-            switch (condition)
+            stats.TakeDamage(cp.intensity);
+            switch (cp.condition)
             {
                 case Conditions.BURNING:
                     stats.DamageVulnerability = 1;
                     break;
                 case Conditions.BLEEDING:
-                    stats.EnemyController.ChangeSpeed(stats.EnemyController.maxSpeed / 2, duration - elapsedTime);
+                    ApplyCondition(stats, Conditions.SLOW, (int)stats.EnemyController.maxSpeed / 2, cp.duration - elapsedTime);
                     break;
                 default:
                     Debug.LogError("Wrong condition being applied. Fix your damn code.");
@@ -59,7 +66,7 @@ public class EnemyDebuffManager: MonoBehaviour
             yield return new WaitForSeconds(tickInterval);
             elapsedTime += tickInterval;
         }
-        ClearConditions(condition);
+        ClearConditions(cp.condition);
     }
 
     public void ClearConditions(Conditions condition)

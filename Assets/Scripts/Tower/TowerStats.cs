@@ -6,11 +6,12 @@ using UnityEngine;
 [Serializable]
 public struct Stats
 {
+    public int maxIndividualTargets;
     public int towerDamage;
     public float towerRange;
     public float towerAttackInterval;
     public float projectileSpeed;
-    public float projectilePierce;
+    public int projectilePierce;
     public List<ConditionParameters> projectileConditions;
     public ExpandingAOEParameters expandingAOEParams;
     public GameObject projectilePrefab;

@@ -45,6 +45,7 @@ public class EnemyStats : MonoBehaviour, IDamageable
     private void OnDestroy()
     {
         _enemyController.ClearSlow -= _debuffManager.ClearConditions;
+        EventBus<EnemyDeathEvent>.Publish(new EnemyDeathEvent(this));
     }
 
     public void TakeDamage(int damage)
@@ -54,18 +55,18 @@ public class EnemyStats : MonoBehaviour, IDamageable
         {
             Die();
         }
-        Debug.Log("Enemy took " + damage + " damage, and has " + _currentHealth + " remaining health");
+        Debug.Log("Enemy took " + (damage + DamageVulnerability) + " damage, and has " + _currentHealth + " remaining health");
     }
 
-    public void ApplyCondition(Conditions condition, int intensity, float duration)
+    public void ApplyCondition(ConditionParameters param)
     {
-        _debuffManager.ApplyCondition(this, condition, intensity, duration);
+        _debuffManager.ApplyCondition(this, param);
     }
     
     private void Die()
     {
         Debug.Log("Enemy died");
-        EventBus<EnemyDeathEvent>.Publish(new EnemyDeathEvent(this));
+        
         Destroy(gameObject, 0.5f);
     }
 }

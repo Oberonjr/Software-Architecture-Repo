@@ -56,6 +56,7 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
     
     private void UpdateEnemy(Transform firstEnemy, Transform lastEnemy, Transform closestEnemy, List<EnemyStats> allEnemies)
     {
+        target.Clear();
         switch (_currentTargeting)
         {
             case TargetingType.FIRST:
@@ -90,9 +91,15 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
         if (target.Count > 0)
         {
             List<GameObject> targetPositions = new List<GameObject>();
-            foreach (Transform targetLocation in target)
+            // foreach (Transform targetLocation in target)
+            // {
+            //     if(targetLocation != null) targetPositions.Add(targetLocation.gameObject);
+            // }
+
+            for (int i = 0; i < towerStats.stats.maxIndividualTargets; i++)
             {
-                if(targetLocation != null) targetPositions.Add(targetLocation.gameObject);
+                if(i >= target.Count) continue;
+                if(target[i] != null) targetPositions.Add(target[i].gameObject);
             }
             _attacker.Attack(_shootingPoint, towerStats, targetPositions);    
             

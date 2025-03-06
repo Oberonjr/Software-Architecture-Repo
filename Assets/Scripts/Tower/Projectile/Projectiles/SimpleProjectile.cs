@@ -12,7 +12,7 @@ public class SimpleProjectile : ProjectileType
             targetStats.TakeDamage(damage);
             foreach (ConditionParameters condition in applyConditions)
             {
-                targetStats.ApplyCondition(condition.condition, condition.intensity, condition.duration);
+                targetStats.ApplyCondition(condition);
             }
         }
         else

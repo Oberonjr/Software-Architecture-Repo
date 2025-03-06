@@ -21,6 +21,7 @@ public class AOEAttacker : AbstractAttacker
                 Debug.LogError("A non-enemy has been targeted. Fix your damn code");
             }
         }
+        tower.stats.maxIndividualTargets = tower.stats.projectilePierce;
         AOEAttack(pSource, tower, enemies);
     }
 
@@ -32,6 +33,7 @@ public class AOEAttacker : AbstractAttacker
             AOEeffect = effect;
             effect.SetParameters(stats.towerDamage, 
                 stats.projectileSpeed, stats.towerRange, stats.expandingAOEParams.expansionRadiusIncrement);
+            effect.applyConditions = stats.projectileConditions;
         }
         Instantiate<ExpandingAOE>(effect, pSource);
     }
