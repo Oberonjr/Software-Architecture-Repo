@@ -27,10 +27,14 @@ public class SingleAttacker : AbstractAttacker
     
     public void SingleAttack(Transform pSource, Stats stats, Vector3 pTarget)
     {
-        Vector3 projectileVelocity = (pTarget - pSource.position).normalized * stats.projectileSpeed;
+        Vector3 direction = (pTarget - pSource.position);
+        Vector3 projectileVelocity = direction.normalized * stats.projectileSpeed;
+        EventBus<PlayAttackAnimationEvent>.Publish(new PlayAttackAnimationEvent(direction));
         ProjectileController projectileController = Instantiate<ProjectileController>(projectilePrefab);
         projectileController.transform.position = pSource.position;
         projectileController.SetVelocity(projectileVelocity);
+        projectileController.transform.GetChild(0).LookAt(pTarget);
+        Debug.DrawRay(pSource.position, direction, Color.red, 2f);
         if (projectileController.transform.TryGetComponent<ProjectileType>(out ProjectileType projectileType))
         {
             projectileType.damage = stats.towerDamage;

@@ -14,6 +14,7 @@ public class EventBus<T> where T : Event
     }
 }
 
+#region Cheatsheet
 //Dummy logic to remember the syntax
 //This is not meant to be used nor is the syntax correct, but it's essentially a cheat sheet
 //public
@@ -41,7 +42,7 @@ class TestEvent : Event
         EventBus<TestEvent>.Publish(new TestEvent(value));
     }
 }
-
+#endregion
 //---------------------ACTUAL EVENTS-------------------------------
 
 
@@ -68,5 +69,15 @@ public class SelectTowerEvent : Event
 }
 
 public class DeselectTowerEvent : Event{}
+
+public class PlayAttackAnimationEvent : Event
+{
+    public Vector3 direction;
+
+    public PlayAttackAnimationEvent(Vector3 pDirection)
+    {
+        direction = pDirection;
+    }
+}
 
 

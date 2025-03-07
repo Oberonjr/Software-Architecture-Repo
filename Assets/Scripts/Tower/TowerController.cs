@@ -22,13 +22,20 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
     
     private EnemyCheck _enemyCheck;
     private RangeIndicatorManager _rangeIndicatorManager;
+    private TowerAnimationManager _animManager;
 
-    public List<Transform> target = new List<Transform>();
+    private System.Action<Vector3> AttackTarget;
+
+    private List<Transform> target = new List<Transform>();
 
     public TowerStats TowerStats {get => towerStats;}
     
     void Start()
     {
+        if (TryGetComponent(out TowerAnimationManager aM))
+        {
+            _animManager = aM;
+        }
         //Move all this to an OnTowerPlaced() that triggers from an event
         InvokeRepeating(nameof(AttackRepeating), 0f, towerStats.stats.towerAttackInterval);
         _enemyCheck = GetComponentInChildren<EnemyCheck>();
@@ -36,6 +43,10 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
         _enemyCheck.Range.radius = towerStats.stats.towerRange;
         _enemyCheck.OnEnemyEnterRange += UpdateEnemy;
         _enemyCheck.OnEnemyLeaveRange += RemoveEnemyTarget;
+        if (_animManager != null)
+        {
+            AttackTarget += _animManager.RotateToTarget;
+        }
     }
 
     void OnDestroy()
@@ -91,15 +102,19 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
         if (target.Count > 0)
         {
             List<GameObject> targetPositions = new List<GameObject>();
-            // foreach (Transform targetLocation in target)
-            // {
-            //     if(targetLocation != null) targetPositions.Add(targetLocation.gameObject);
-            // }
-
+            
             for (int i = 0; i < towerStats.stats.maxIndividualTargets; i++)
             {
                 if(i >= target.Count) continue;
                 if(target[i] != null) targetPositions.Add(target[i].gameObject);
+            }
+
+            if (_animManager != null)
+            {
+                foreach (GameObject targetLocation in targetPositions)
+                {
+                    AttackTarget?.Invoke(targetLocation.transform.position);
+                }
             }
             _attacker.Attack(_shootingPoint, towerStats, targetPositions);    
             
