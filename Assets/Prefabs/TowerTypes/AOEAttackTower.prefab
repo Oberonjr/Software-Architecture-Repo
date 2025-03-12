@@ -192,6 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerStats:
     stats:
+      maxIndividualTargets: 0
       towerDamage: 3
       towerRange: 25
       towerAttackInterval: 2
@@ -207,7 +208,6 @@ MonoBehaviour:
   _currentTargeting: 3
   _attacker: {fileID: 11400000, guid: 75b7fe65e8122824eb9bb15097052fdf, type: 2}
   _shootingPoint: {fileID: 6758740154236526367}
-  target: []
 --- !u!1001 &2191013476251080052
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -283,6 +283,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 2877184607424225486}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: f12c6741f997a434b916c8d095d51f15, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f12c6741f997a434b916c8d095d51f15, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f12c6741f997a434b916c8d095d51f15, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f12c6741f997a434b916c8d095d51f15, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -321,6 +333,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: f12c6741f997a434b916c8d095d51f15, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f12c6741f997a434b916c8d095d51f15, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7746874440364558126, guid: f12c6741f997a434b916c8d095d51f15, type: 3}
       propertyPath: m_Layer

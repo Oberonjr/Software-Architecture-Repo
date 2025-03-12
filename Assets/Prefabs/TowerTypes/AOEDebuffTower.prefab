@@ -230,15 +230,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerStats:
     stats:
+      maxIndividualTargets: 0
       towerDamage: 1
-      towerRange: 22
-      towerAttackInterval: 1.5
-      projectileSpeed: 60
-      projectilePierce: 3
-      projectileConditions: []
-      projectilePrefab: {fileID: 3407865640744548001, guid: b8350ae10e402a0468650166b642cfa4, type: 3}
-  _currentTargeting: 0
-  _attacker: {fileID: 11400000, guid: 6a3367fa966874743ac17e42dbc2541a, type: 2}
+      towerRange: 30
+      towerAttackInterval: 3.1
+      projectileSpeed: 50
+      projectilePierce: 7
+      projectileConditions:
+      - condition: 1
+        intensity: 1
+        duration: 3
+      expandingAOEParams:
+        AOEDamage: 0
+        expansionSpeed: 0
+        maxAOERadius: 0
+        expansionRadiusIncrement: 0
+      projectilePrefab: {fileID: 3407865640744548001, guid: 678057b6b75bb774ea051c239ce8a945, type: 3}
+  _currentTargeting: 3
+  _attacker: {fileID: 11400000, guid: 75b7fe65e8122824eb9bb15097052fdf, type: 2}
   _shootingPoint: {fileID: 1903660183662221023}
 --- !u!1 &5129527607502641703
 GameObject:
@@ -295,6 +304,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 103841588748030679}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8b15339c91068c54098bb10b893d2953, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b15339c91068c54098bb10b893d2953, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b15339c91068c54098bb10b893d2953, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b15339c91068c54098bb10b893d2953, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -333,6 +354,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8b15339c91068c54098bb10b893d2953, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8b15339c91068c54098bb10b893d2953, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8451839963971860093, guid: 8b15339c91068c54098bb10b893d2953, type: 3}
       propertyPath: m_Layer

@@ -154,12 +154,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerStats:
     stats:
+      maxIndividualTargets: 0
       towerDamage: 1
       towerRange: 22
       towerAttackInterval: 1.5
       projectileSpeed: 60
       projectilePierce: 3
       projectileConditions: []
+      expandingAOEParams:
+        AOEDamage: 0
+        expansionSpeed: 0
+        maxAOERadius: 0
+        expansionRadiusIncrement: 0
       projectilePrefab: {fileID: 3407865640744548001, guid: b8350ae10e402a0468650166b642cfa4, type: 3}
   _currentTargeting: 0
   _attacker: {fileID: 11400000, guid: 6a3367fa966874743ac17e42dbc2541a, type: 2}
@@ -326,6 +332,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 5126653296257668489}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c55441eba23f9124990f10da36d4c7b0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c55441eba23f9124990f10da36d4c7b0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c55441eba23f9124990f10da36d4c7b0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c55441eba23f9124990f10da36d4c7b0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -364,6 +382,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: c55441eba23f9124990f10da36d4c7b0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c55441eba23f9124990f10da36d4c7b0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4288488473237179757, guid: c55441eba23f9124990f10da36d4c7b0, type: 3}
       propertyPath: m_Layer
