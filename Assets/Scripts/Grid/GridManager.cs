@@ -7,10 +7,11 @@ using NaughtyAttributes;
 public class GridManager : MonoBehaviour
 {
     private static GridManager instance;
-    [SerializeField]private Tilemap tilemap;
     [SerializeField]private Vector2Int gridSize;
+    [SerializeField]private Tilemap tilemap;
+    [SerializeField]private int _cellSize;
     private Node[,] grid;
-    private int _cellSize;
+    
     
     public static GridManager Instance => instance;
     
@@ -29,7 +30,9 @@ public class GridManager : MonoBehaviour
             Destroy(gameObject);
         }
         
+        #if UNITY_EDITOR
         if(pathVisualizers.Count > 0) ClearVisuals();
+        #endif
         GenerateGrid();
         PopulatePath();
     }
@@ -37,7 +40,6 @@ public class GridManager : MonoBehaviour
     void GenerateGrid()
     {
         grid = new Node[gridSize.x, gridSize.y];
-        _cellSize = Mathf.RoundToInt(tilemap.cellSize.x);
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
@@ -51,9 +53,14 @@ public class GridManager : MonoBehaviour
 
     void PopulatePath()
     {
+        AlignTilemapToGrid();
         foreach (Transform child in tilemap.transform)
         {
-            GetNode(child.position).placedObject = child.gameObject;
+            Node pathNode = GetNode(child.position);
+            if (pathNode != null)
+            {
+                pathNode.placedObject = child.gameObject;
+            }
         }
     }
     
@@ -71,18 +78,29 @@ public class GridManager : MonoBehaviour
         Debug.LogWarning("No node found at given position.");
         return null;
     }
+
+    void AlignTilemapToGrid()
+    {
+        tilemap.transform.position = grid[gridSize.x - 1, gridSize.y - 1].GridPosition;
+    }
     
     //Testing
+#if UNITY_EDITOR
     List<GameObject> pathVisualizers = new List<GameObject>();
     
     [Button("Generate Grid Visuals")]
     public void VisualisePath()
     {
         if(grid == null) GenerateGrid();
+        PopulatePath();
         foreach (Node n in grid)
         {
             GameObject visual = Instantiate(_gridVisualizerPrefab, n.GridPosition, Quaternion.identity);
-            visual.transform.localScale = new Vector3(_cellSize, _cellSize, _cellSize);
+            visual.transform.localScale = new Vector3(_cellSize / 1.15f, _cellSize / 1.15f, _cellSize / 1.15f);
+            if (n.placedObject != null)
+            {
+                visual.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+            }
             pathVisualizers.Add(visual);
         }
     }
@@ -93,7 +111,17 @@ public class GridManager : MonoBehaviour
         grid = null;
         foreach (GameObject go in pathVisualizers)
         {
-            Destroy(go);
+            if (!Application.isPlaying)
+            {
+                Debug.Log("Called during edit mode");
+                DestroyImmediate(go);
+            }
+            else
+            {
+                Debug.Log("Called during play mode");
+                Destroy(go);
+            }
         }
     }
+#endif
 }

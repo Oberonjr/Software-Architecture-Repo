@@ -1227,7 +1227,7 @@ Transform:
   m_GameObject: {fileID: 488122403}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3933,8 +3933,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ef07b9bbbbd2f49aaba26e95d318e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 488122406}
   gridSize: {x: 25, y: 25}
+  tilemap: {fileID: 488122406}
+  _cellSize: 6
   _gridVisualizerPrefab: {fileID: 7287631319016541812, guid: ddd53636f7554fc46ab366da948d04a3, type: 3}
 --- !u!1 &1607079970
 GameObject:

@@ -35,14 +35,14 @@ public class InputManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~ignoreClickLayer))
         {
+            #region testing
             GameObject clickVisualizer = Instantiate(GridManager.Instance._gridVisualizerPrefab,hit.point, Quaternion.identity);
             GameObject NodeClickVisualizer = Instantiate(GridManager.Instance._gridVisualizerPrefab, GridManager.Instance.GetNode(hit.point).GridPosition, Quaternion.identity);
-            clickVisualizer.transform.localScale = new Vector3(4, 4, 4);
-            Debug.Log(clickVisualizer.transform.position);
+            clickVisualizer.transform.localScale = new Vector3(7, 7, 7);
             Destroy(clickVisualizer, 2f);
-            NodeClickVisualizer.transform.localScale = new Vector3(4, 4, 4);
-            Debug.Log(NodeClickVisualizer.transform.position);
+            NodeClickVisualizer.transform.localScale = new Vector3(7, 7, 7);
             Destroy(NodeClickVisualizer, 2f);
+            #endregion
             return GridManager.Instance.GetNode(hit.point);
         }
         Debug.LogWarning("No node found");
