@@ -13,10 +13,9 @@ public class GridManager : MonoBehaviour
     private int _cellSize;
     
     public static GridManager Instance => instance;
-    public Tilemap Tilemap => tilemap;
     
     #region Editor Testing Variables
-    [SerializeField] private GameObject _gridVisualizerPrefab;
+    public GameObject _gridVisualizerPrefab;
     #endregion
     
     void Awake()
@@ -39,7 +38,6 @@ public class GridManager : MonoBehaviour
     {
         grid = new Node[gridSize.x, gridSize.y];
         _cellSize = Mathf.RoundToInt(tilemap.cellSize.x);
-        //Debug.Log(gridSize.y);
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
@@ -64,6 +62,8 @@ public class GridManager : MonoBehaviour
         int x = Mathf.RoundToInt(worldPos.x / _cellSize);
         int y = Mathf.RoundToInt(worldPos.z / _cellSize);
 
+        //Debug.Log(x + ", " + y);
+        
         if (x >= 0 && x < gridSize.x && y >= 0 && y < gridSize.y)
         {
             return grid[x, y];

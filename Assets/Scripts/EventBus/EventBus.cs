@@ -80,4 +80,13 @@ public class PlayAttackAnimationEvent : Event
     }
 }
 
+//Input events
+public class ClickNodeEvent : Event
+{
+    public Node clickNode;
 
+    public ClickNodeEvent(Node pClickNode)
+    {
+        clickNode = pClickNode;
+    }
+}
