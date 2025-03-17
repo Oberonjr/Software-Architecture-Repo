@@ -90,3 +90,34 @@ public class ClickNodeEvent : Event
         clickNode = pClickNode;
     }
 }
+
+public class HoverNodeEvent : Event
+{
+    public Node hoverNode;
+
+    public HoverNodeEvent(Node pHoverNode)
+    {
+        hoverNode = pHoverNode;
+    }
+}
+
+//Building events
+public class SelectTowerToBuildEvent : Event
+{
+    public TowerController tower;
+
+    public SelectTowerToBuildEvent(TowerController pTower = null)
+    {
+        tower = pTower;
+    }
+}
+
+public class BuildTowerEvent : Event
+{
+    public Vector3 position;
+
+    public BuildTowerEvent(Vector3 pPosition)
+    {
+        position = pPosition;
+    }
+}

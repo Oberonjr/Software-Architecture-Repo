@@ -8,6 +8,7 @@ public class InputManager : MonoBehaviour
 {
     public LayerMask ignoreClickLayer;
     private Camera cam;
+    private bool _enableHover;
 
     void Start()
     {
@@ -22,11 +23,41 @@ public class InputManager : MonoBehaviour
             EndTowerSelection();
         }
 
+        if (Input.anyKeyDown)
+        {
+            foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyDown(key))
+                {
+                    Debug.Log(key.ToString());
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _enableHover = !_enableHover;
+            Debug.Log("Hover is: " + _enableHover);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            EventBus<SelectTowerToBuildEvent>.Publish(new SelectTowerToBuildEvent());
+            Debug.Log("Queued dummy tower for building");
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             Node clickedNode = ClickedNode();
             if(clickedNode != null) EventBus<ClickNodeEvent>.Publish(new ClickNodeEvent(clickedNode));
         }
+
+        if (_enableHover)
+        {
+            Node hoverNode = ClickedNode();
+            if(hoverNode != null) EventBus<HoverNodeEvent>.Publish(new HoverNodeEvent(hoverNode));
+        }
+        
     }
 
     Node ClickedNode()
@@ -35,20 +66,13 @@ public class InputManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~ignoreClickLayer))
         {
-            #region testing
-            GameObject clickVisualizer = Instantiate(GridManager.Instance._gridVisualizerPrefab,hit.point, Quaternion.identity);
-            GameObject NodeClickVisualizer = Instantiate(GridManager.Instance._gridVisualizerPrefab, GridManager.Instance.GetNode(hit.point).GridPosition, Quaternion.identity);
-            clickVisualizer.transform.localScale = new Vector3(7, 7, 7);
-            Destroy(clickVisualizer, 2f);
-            NodeClickVisualizer.transform.localScale = new Vector3(7, 7, 7);
-            Destroy(NodeClickVisualizer, 2f);
-            #endregion
             return GridManager.Instance.GetNode(hit.point);
         }
         Debug.LogWarning("No node found");
         return null;
     }
-
+    
+    
     public void EndTowerSelection()
     {
         EventBus<DeselectTowerEvent>.Publish(new DeselectTowerEvent());
@@ -61,6 +85,5 @@ public class InputManager : MonoBehaviour
         {
             Debug.Log(e.clickNode.placedObject.name);
         }
-//        
     }
 }

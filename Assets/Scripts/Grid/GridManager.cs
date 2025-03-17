@@ -81,7 +81,7 @@ public class GridManager : MonoBehaviour
 
     void AlignTilemapToGrid()
     {
-        tilemap.transform.position = grid[gridSize.x - 1, gridSize.y - 1].GridPosition;
+        tilemap.transform.position = grid[gridSize.x - 1, gridSize.y - 1].GridPosition + Vector3.up * 0.5f;
     }
     
     //Testing
@@ -121,6 +121,12 @@ public class GridManager : MonoBehaviour
                 Debug.Log("Called during play mode");
                 Destroy(go);
             }
+        }
+
+        if (Application.isPlaying)
+        {
+            GenerateGrid();
+            PopulatePath();
         }
     }
 #endif

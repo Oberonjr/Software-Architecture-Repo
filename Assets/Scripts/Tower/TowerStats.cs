@@ -1,11 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [Serializable]
 public struct Stats
 {
+    public int cost;
+    public TowerController upgradeTower;
+    
     public int maxIndividualTargets;
     public int towerDamage;
     public float towerRange;
@@ -21,10 +25,5 @@ public struct Stats
 public class TowerStats
 {
     public Stats stats;
-
-   
-    public void UpdateTowerStats(Stats newStats)
-    {
-       
-    }
+    
 }

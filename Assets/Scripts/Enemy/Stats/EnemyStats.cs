@@ -8,6 +8,7 @@ public class EnemyStats : MonoBehaviour, IDamageable
 {
     [SerializeField]private int maxHealth;
     [SerializeField]private int maxSpeed;
+    [SerializeField]private int deathReward;
 
     private int _currentHealth;
     private EnemyController _enemyController;
@@ -16,13 +17,8 @@ public class EnemyStats : MonoBehaviour, IDamageable
     private System.Action<Conditions> ClearDOT;
     
     [HideInInspector]public int DamageVulnerability = 0;
-    public EnemyController EnemyController
-    {
-        get
-        {
-            return _enemyController;
-        }
-    }
+    public EnemyController EnemyController => _enemyController;
+    public int DeathReward => deathReward;
     
     void Awake()
     {
