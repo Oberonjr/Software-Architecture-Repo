@@ -42,6 +42,7 @@ public class EconomyManager : MonoBehaviour
     public void AddMoney(int amount)
     {
         Money += amount;
+        EventBus<UpdateMoneyBalannceEvent>.Publish(new UpdateMoneyBalannceEvent(Money));
     }
 
     public void SpendMoney(int amount)
@@ -52,6 +53,7 @@ public class EconomyManager : MonoBehaviour
             return;
         }
         Money -= amount;
+        EventBus<UpdateMoneyBalannceEvent>.Publish(new UpdateMoneyBalannceEvent(Money));
     }
 
     public bool CanAfford(int cost)

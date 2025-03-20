@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AYellowpaper.SerializedCollections;
 
 public class TowerPlacer : MonoBehaviour
 {
-    //Made public for testing convenience, consider changing
-    public TowerPreviewController towerPrefab;
+    [SerializedDictionary("Key","Tower")]
+    public SerializedDictionary<KeyCode, TowerPreviewController> towersKeyMapping;
     
     private TowerPreviewController _currentSelectedTower = null;
     private TowerPreviewController _previewTower = null;
@@ -42,20 +43,28 @@ public class TowerPlacer : MonoBehaviour
 
     void QueueTowerToBuild(SelectTowerToBuildEvent e)
     {
-        if(_previewTower != null)Destroy(_previewTower);
-        _currentSelectedTower = towerPrefab;
-        _previewTower = Instantiate(_currentSelectedTower, Vector3.zero, Quaternion.identity);
+        if(_previewTower != null)Destroy(_previewTower.gameObject);
+        if (!towersKeyMapping.ContainsKey(e.key) ||
+            !EconomyManager.Instance.CanAfford(towersKeyMapping[e.key].TowerToSpawn.TowerStats.stats.cost))
+        {
+            EventBus<ToggleHoverEvent>.Publish(new ToggleHoverEvent(false));
+            return;
+        }
         _holdingTower = true;
+        EventBus<ToggleHoverEvent>.Publish(new ToggleHoverEvent(_holdingTower));
+        _currentSelectedTower = towersKeyMapping[e.key];
+        _previewTower = Instantiate(_currentSelectedTower, Vector3.zero, Quaternion.identity);
         EventBus<ClickNodeEvent>.OnEvent += BuildTower;
     }
 
     void BuildTower(ClickNodeEvent e)
     {
         if(!_holdingTower || e.clickNode.placedObject != null) return;
+        _holdingTower = false;
+        EventBus<ToggleHoverEvent>.Publish(new ToggleHoverEvent(_holdingTower));
         EventBus<BuildTowerEvent>.Publish(new BuildTowerEvent(e.clickNode.GridPosition));
         _currentSelectedTower = null;
         _previewTower = null;
-        _holdingTower = false;
         EventBus<ClickNodeEvent>.OnEvent -= BuildTower;
     }
 

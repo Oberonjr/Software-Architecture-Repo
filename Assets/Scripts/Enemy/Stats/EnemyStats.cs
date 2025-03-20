@@ -9,6 +9,7 @@ public class EnemyStats : MonoBehaviour, IDamageable
     [SerializeField]private int maxHealth;
     [SerializeField]private int maxSpeed;
     [SerializeField]private int deathReward;
+    [SerializeField]private int damage;
 
     private int _currentHealth;
     private EnemyController _enemyController;
@@ -19,6 +20,7 @@ public class EnemyStats : MonoBehaviour, IDamageable
     [HideInInspector]public int DamageVulnerability = 0;
     public EnemyController EnemyController => _enemyController;
     public int DeathReward => deathReward;
+    public int Damage => damage;
     
     void Awake()
     {

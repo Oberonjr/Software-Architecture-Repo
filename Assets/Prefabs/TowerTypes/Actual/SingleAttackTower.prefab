@@ -231,6 +231,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerStats:
     stats:
+      cost: 150
+      upgradeTower: {fileID: 0}
       maxIndividualTargets: 1
       towerDamage: 3
       towerRange: 22

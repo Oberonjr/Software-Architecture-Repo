@@ -6,7 +6,8 @@ using UnityEngine.UIElements;
 
 public class InputManager : MonoBehaviour
 {
-    public LayerMask ignoreClickLayer;
+    
+    [SerializeField]private LayerMask ignoreClickLayer;
     private Camera cam;
     private bool _enableHover;
 
@@ -14,8 +15,15 @@ public class InputManager : MonoBehaviour
     {
         cam = Camera.main;
         EventBus<ClickNodeEvent>.OnEvent += CheckClickedNode;
+        EventBus<ToggleHoverEvent>.OnEvent += ToggleHover;
     }
-    
+
+    private void OnDestroy()
+    {
+        EventBus<ClickNodeEvent>.OnEvent -= CheckClickedNode;
+        EventBus<ToggleHoverEvent>.OnEvent -= ToggleHover;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -29,23 +37,11 @@ public class InputManager : MonoBehaviour
             {
                 if (Input.GetKeyDown(key))
                 {
-                    Debug.Log(key.ToString());
+                    EventBus<SelectTowerToBuildEvent>.Publish(new SelectTowerToBuildEvent(key));
                 }
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            _enableHover = !_enableHover;
-            Debug.Log("Hover is: " + _enableHover);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            EventBus<SelectTowerToBuildEvent>.Publish(new SelectTowerToBuildEvent());
-            Debug.Log("Queued dummy tower for building");
-        }
-
+        
         if (Input.GetMouseButtonDown(0))
         {
             Node clickedNode = ClickedNode();
@@ -71,7 +67,16 @@ public class InputManager : MonoBehaviour
         Debug.LogWarning("No node found");
         return null;
     }
-    
+
+    public void ToggleHover(ToggleHoverEvent e)
+    {
+        _enableHover = e.hoverValue;
+    }
+
+    public void SelectTowerButton(KeyCode key)
+    {
+        EventBus<SelectTowerToBuildEvent>.Publish(new SelectTowerToBuildEvent(key));
+    }
     
     public void EndTowerSelection()
     {

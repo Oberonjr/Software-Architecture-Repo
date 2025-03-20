@@ -102,13 +102,23 @@ public class HoverNodeEvent : Event
 }
 
 //Building events
+public class ToggleHoverEvent : Event
+{
+    public bool hoverValue;
+
+    public ToggleHoverEvent(bool pValue)
+    {
+        hoverValue = pValue;
+    }
+}
+
 public class SelectTowerToBuildEvent : Event
 {
-    public TowerController tower;
+    public KeyCode key;
 
-    public SelectTowerToBuildEvent(TowerController pTower = null)
+    public SelectTowerToBuildEvent(KeyCode pKey)
     {
-        tower = pTower;
+        key = pKey;
     }
 }
 
@@ -119,5 +129,28 @@ public class BuildTowerEvent : Event
     public BuildTowerEvent(Vector3 pPosition)
     {
         position = pPosition;
+    }
+}
+
+//Economy events
+
+public class UpdateMoneyBalannceEvent : Event
+{
+    public int amount;
+
+    public UpdateMoneyBalannceEvent(int pAmount)
+    {
+        amount = pAmount;   
+    }
+}
+
+//Health events
+public class ModifyHealthEvent : Event
+{
+    public int healthChange;
+
+    public ModifyHealthEvent(int pHealthChange)
+    {
+        healthChange = pHealthChange;
     }
 }

@@ -8,6 +8,7 @@ public class TowerPreviewController : MonoBehaviour
     [SerializeField] private TowerController towerToSpawn;
     [SerializeField] private SpriteRenderer rangeIndicator;
 
+    public TowerController TowerToSpawn => towerToSpawn;
     public void Awake()
     {
         EventBus<BuildTowerEvent>.OnEvent += PlaceTower;
@@ -21,8 +22,9 @@ public class TowerPreviewController : MonoBehaviour
     
     public void PlaceTower(BuildTowerEvent e)
     {
-        Instantiate(towerToSpawn, e.position, Quaternion.identity);
+        TowerController tower = Instantiate(towerToSpawn, e.position, Quaternion.identity);
         EconomyManager.Instance.SpendMoney(towerToSpawn.TowerStats.stats.cost);
+        GridManager.Instance.GetNode(e.position).placedObject = tower.gameObject;
         Destroy(gameObject);
     }
 }

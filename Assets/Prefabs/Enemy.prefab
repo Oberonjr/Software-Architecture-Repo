@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 7162184577845313495}
   - component: {fileID: -2022823335035184686}
   - component: {fileID: 1000043317889009897}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -202,6 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   maxSpeed: 8
+  deathReward: 0
   DamageVulnerability: 0
 --- !u!114 &1000043317889009897
 MonoBehaviour:
