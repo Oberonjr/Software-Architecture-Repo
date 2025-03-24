@@ -21,8 +21,13 @@ public class ProjectileType : MonoBehaviour
 
     public void OnTriggerEnter(Collider col)
     {
-        //Debug.Log("Collided with: " + col.gameObject.name);
+        HandleTrigger(col);
+    }
+
+    public void HandleTrigger(Collider col)
+    {
         GameObject collided = col.gameObject;
+        Debug.Log("Collided with: " + col.gameObject.name);
         if (collided.CompareTag("Enemy"))
         {
             EnemyContact(collided);
@@ -32,7 +37,6 @@ public class ProjectileType : MonoBehaviour
             GroundContact();
         }
     }
-    
     
     public virtual void EnemyContact(GameObject enemy)
     {

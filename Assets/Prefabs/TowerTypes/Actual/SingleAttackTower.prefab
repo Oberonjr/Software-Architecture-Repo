@@ -237,7 +237,7 @@ MonoBehaviour:
       towerDamage: 3
       towerRange: 22
       towerAttackInterval: 2
-      projectileSpeed: 60
+      projectileSpeed: 100
       projectilePierce: 2
       projectileConditions: []
       expandingAOEParams:

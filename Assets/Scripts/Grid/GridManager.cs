@@ -81,7 +81,7 @@ public class GridManager : MonoBehaviour
 
     void AlignTilemapToGrid()
     {
-        tilemap.transform.position = grid[gridSize.x - 1, gridSize.y - 1].GridPosition + Vector3.up * 0.5f;
+        tilemap.transform.position = grid[(int)(gridSize.x / 2), (int)(gridSize.y / 2)].GridPosition + Vector3.up * 0.5f;
     }
     
     //Testing

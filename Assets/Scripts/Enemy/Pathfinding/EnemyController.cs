@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class EnemyController : MonoBehaviour
 {
     private IPathFinding pathFinder;
 
-    //[HideInInspector]
+    [HideInInspector] 
     public GameObject target;
     [HideInInspector]
     public float maxSpeed;
@@ -27,6 +28,11 @@ public class EnemyController : MonoBehaviour
             throw new System.Exception("No Target for the enemy!");
         }
         ResetSpeed();
+    }
+
+    private void OnDisable()
+    {
+        if(pathFinder as EUnityPathfinding) Destroy(pathFinder as EUnityPathfinding);
     }
 
     public void ChangeSpeed(float modifier, float timer)

@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     
     [HideInInspector] public bool isSpedUp;
 
+    [SerializeField] private int maxHealth;
+    private int currentHealth;
+
     private TowerController currentSelectedTower;
 
     private void Awake()
@@ -27,14 +30,18 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        currentHealth = maxHealth;
         EventBus<SelectTowerEvent>.OnEvent += UpdateCurrentTower;
         EventBus<DeselectTowerEvent>.OnEvent += DeselectTower;
+        EventBus<ModifyHealthEvent>.OnEvent += ChangeHealth;
+        EventBus<UpdateHealthEvent>.Publish(new UpdateHealthEvent(currentHealth));
     }
 
     private void OnDestroy()
     {
         EventBus<SelectTowerEvent>.OnEvent -= UpdateCurrentTower;
         EventBus<DeselectTowerEvent>.OnEvent -= DeselectTower;
+        EventBus<ModifyHealthEvent>.OnEvent -= ChangeHealth;
     }
 
     void UpdateCurrentTower(SelectTowerEvent e)
@@ -61,7 +68,20 @@ public class GameManager : MonoBehaviour
         isSpedUp = !isSpedUp;
         Time.timeScale = isSpedUp ? 3 : 1;
     }
-    
 
+    public void StartNextWave()
+    {
+        EventBus<StartWaveEvent>.Publish(new StartWaveEvent());
+    }
+
+    void ChangeHealth(ModifyHealthEvent e)
+    {
+        currentHealth += e.healthChange;
+        EventBus<UpdateHealthEvent>.Publish(new UpdateHealthEvent(currentHealth));
+        if (currentHealth >= 0)
+        {
+            EventBus<GameOverEvent>.Publish(new GameOverEvent());
+        }
+    }
     
 }

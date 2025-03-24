@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,5 +16,10 @@ public class EUnityPathfinding : MonoBehaviour, IPathFinding
     {
         agent.speed = speed;
         agent.SetDestination(targetPosition);
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(agent);
     }
 }

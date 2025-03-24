@@ -47,6 +47,16 @@ class TestEvent : Event
 
 
 //Enemy events
+public class EnemySpawnEvent : Event
+{
+    public EnemyStats enemy;
+
+    public EnemySpawnEvent(EnemyStats pEnemy)
+    {
+        enemy = pEnemy;
+    }
+}
+
 public class EnemyDeathEvent: Event
 {
     public EnemyStats enemy;
@@ -54,6 +64,16 @@ public class EnemyDeathEvent: Event
     public EnemyDeathEvent(EnemyStats pEnemy)
     {
         enemy = pEnemy;
+    }
+}
+
+public class InitializeEnemySpawnersEvent:Event
+{
+    public EnemySpawner spawner;
+
+    public InitializeEnemySpawnersEvent(EnemySpawner pSpawner)
+    {
+        spawner = pSpawner;
     }
 }
 
@@ -154,3 +174,32 @@ public class ModifyHealthEvent : Event
         healthChange = pHealthChange;
     }
 }
+
+public class UpdateHealthEvent : Event
+{
+    public int currentHealth;
+
+    public UpdateHealthEvent(int pCurrentHealth)
+    {
+        currentHealth = pCurrentHealth;
+    }
+}
+
+public class GameOverEvent : Event
+{
+    
+}
+
+//Wave events
+public class StartWaveEvent: Event{}
+
+public class EndWaveEvent : Event
+{
+    public int waveNumber;
+
+    public EndWaveEvent(int pWaveNumber)
+    {
+        waveNumber = pWaveNumber;
+    }
+}
+

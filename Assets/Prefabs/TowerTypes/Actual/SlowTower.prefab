@@ -156,7 +156,7 @@ MonoBehaviour:
     stats:
       cost: 250
       upgradeTower: {fileID: 0}
-      maxIndividualTargets: 0
+      maxIndividualTargets: 1
       towerDamage: 1
       towerRange: 22
       towerAttackInterval: 1.5

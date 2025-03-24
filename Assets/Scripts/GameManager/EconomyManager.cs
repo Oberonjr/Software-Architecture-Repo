@@ -27,6 +27,7 @@ public class EconomyManager : MonoBehaviour
     {
         Money = startingMoney;
         EventBus<EnemyDeathEvent>.OnEvent += AddMoney;
+        EventBus<UpdateMoneyBalannceEvent>.Publish(new UpdateMoneyBalannceEvent(Money));
     }
 
     void OnDestroy()

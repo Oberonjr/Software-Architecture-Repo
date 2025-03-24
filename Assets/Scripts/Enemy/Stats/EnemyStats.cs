@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyController), typeof(EnemyDebuffManager))]
+[RequireComponent(typeof(EnemyController), typeof(EnemyDebuffManager), typeof(EnemyVisualsManager))]
 public class EnemyStats : MonoBehaviour, IDamageable
 {
     [SerializeField]private int maxHealth;
@@ -14,6 +14,7 @@ public class EnemyStats : MonoBehaviour, IDamageable
     private int _currentHealth;
     private EnemyController _enemyController;
     private EnemyDebuffManager _debuffManager;
+    private EnemyVisualsManager _visualsManager;
     
     private System.Action<Conditions> ClearDOT;
     
@@ -38,6 +39,13 @@ public class EnemyStats : MonoBehaviour, IDamageable
 
         _debuffManager = GetComponent<EnemyDebuffManager>();
         _enemyController.ClearSlow += _debuffManager.ClearConditions;
+        _visualsManager = GetComponent<EnemyVisualsManager>();
+        _visualsManager.SetHealth(maxHealth);
+    }
+
+    private void Start()
+    {
+        EventBus<EnemySpawnEvent>.Publish(new EnemySpawnEvent(this));
     }
 
     private void OnDestroy()
@@ -49,9 +57,14 @@ public class EnemyStats : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         _currentHealth -= damage + DamageVulnerability;
+        _visualsManager.UpdateHealth(_currentHealth);
         if (_currentHealth <= 0)
         {
             Die();
+        }
+        else
+        {
+            _visualsManager.ShowDamage(damage + DamageVulnerability);
         }
         Debug.Log("Enemy took " + (damage + DamageVulnerability) + " damage, and has " + _currentHealth + " remaining health");
     }
@@ -64,7 +77,8 @@ public class EnemyStats : MonoBehaviour, IDamageable
     private void Die()
     {
         Debug.Log("Enemy died");
-        
+        _enemyController.enabled = false;
+        _visualsManager.ShowGold(deathReward);
         Destroy(gameObject, 0.5f);
     }
 }
