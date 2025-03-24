@@ -875,6 +875,7 @@ GameObject:
   - component: {fileID: 246785218}
   - component: {fileID: 246785217}
   - component: {fileID: 246785216}
+  - component: {fileID: 246785219}
   m_Layer: 5
   m_Name: Upgrade Tower Button
   m_TagString: Untagged
@@ -945,7 +946,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 246785217}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 246785219}
+        m_TargetAssemblyTypeName: TowerUpgradeButton, Assembly-CSharp
+        m_MethodName: UpgradeTower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &246785217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -984,6 +997,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 246785214}
   m_CullTransparentMesh: 1
+--- !u!114 &246785219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246785214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31bed38bd7858ad49b1d3efab9387be9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  costText: {fileID: 264842541}
+  towerToUpgrade: {fileID: 0}
 --- !u!1 &255142672
 GameObject:
   m_ObjectHideFlags: 0
@@ -6124,7 +6151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec07505a5154373499af7c502e834757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingMoney: 1000
+  startingMoney: 10000
   Money: 0
 --- !u!114 &1558057285
 MonoBehaviour:

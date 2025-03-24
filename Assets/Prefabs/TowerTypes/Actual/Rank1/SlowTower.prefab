@@ -155,14 +155,17 @@ MonoBehaviour:
   towerStats:
     stats:
       cost: 250
-      upgradeTower: {fileID: 0}
+      upgradeTower: {fileID: 4945657630442705756, guid: d6c7564f3ecdfe548b8aa881f6a62cea, type: 3}
       maxIndividualTargets: 1
       towerDamage: 1
       towerRange: 22
       towerAttackInterval: 1.5
       projectileSpeed: 60
       projectilePierce: 3
-      projectileConditions: []
+      projectileConditions:
+      - condition: 0
+        intensity: 1
+        duration: 3
       expandingAOEParams:
         AOEDamage: 0
         expansionSpeed: 0
@@ -267,7 +270,7 @@ Transform:
   m_GameObject: {fileID: 5434032612090187611}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 40, y: 40, z: 40}
   m_ConstrainProportionsScale: 1
   m_Children: []

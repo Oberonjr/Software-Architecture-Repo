@@ -34,12 +34,24 @@ public class UpgradePanelManager : MonoBehaviour
         upgradePanel.SetActive(true);
         towerNameText.text = e.tower.name;
         statsText.text = "Stats: \n" + "Damage: " + tStats.towerDamage + "\nRange: " + tStats.towerRange + "\nAttack interval: " + tStats.towerAttackInterval;
-        /*TODO:
-         _isAffordable = e.tower.UpgradeManager.CanAffordUpgrade()
-         upgradeButton.isInteractable = _isAffordable
-         Stats uStats = e.tower.UpgradeManager.TowerUpgrade.TowerStats.stats
-         upgradeStats.text = "Upgarde stats: \n" + ...
-         */
+        TowerUpgradeButton upLog = upgradeButton.GetComponent<TowerUpgradeButton>();
+
+        if (tStats.upgradeTower == null)
+        {
+            upgradeButton.gameObject.SetActive(false);
+            upgradeStatsText.gameObject.SetActive(false);
+        }
+        else
+        {
+            upgradeButton.gameObject.SetActive(true);
+            upgradeStatsText.gameObject.SetActive(true);
+            _isAffordable = EconomyManager.Instance.CanAfford(tStats.upgradeTower.TowerStats.stats.cost);
+            upgradeButton.interactable = _isAffordable;
+            upLog.towerToUpgrade = e.tower;
+            upLog.UpdateCostText();
+            Stats uStats = tStats.upgradeTower.TowerStats.stats;
+            upgradeStatsText.text = "Upgarde stats: \n" + "Damage: " + uStats.towerDamage + "\nRange: " + uStats.towerRange + "\nAttack interval: " + uStats.towerAttackInterval;
+        }
     }
 
     void DisableUpgradePanel(DeselectTowerEvent e)

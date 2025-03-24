@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1722442880034013569}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 40, y: 40, z: 40}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -232,7 +232,7 @@ MonoBehaviour:
   towerStats:
     stats:
       cost: 150
-      upgradeTower: {fileID: 0}
+      upgradeTower: {fileID: 8621927286148086148, guid: 0391defa59352d54ab1600b240b0a794, type: 3}
       maxIndividualTargets: 1
       towerDamage: 3
       towerRange: 22
@@ -548,8 +548,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.3945637, y: 12.303139, z: 4.3210015}
-  m_Center: {x: 0, y: 5.6515694, z: 0}
+  m_Size: {x: 3.3945637, y: 14.653836, z: 4.3210015}
+  m_Center: {x: 0, y: 6.826918, z: 0}
 --- !u!4 &7733103766481532320 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e821c68dd9b6f4a4d97492e858faa357, type: 3}

@@ -19,8 +19,6 @@ public class WaveManager : MonoBehaviour
     private int _currentGroupIndex = 0;
     private int _currentSpawnerIndex = 0;
     private bool _spawningGroup = false;
-    
-    private event System.Action OnGroupEnd;
 
     void Awake()
     {
@@ -35,6 +33,7 @@ public class WaveManager : MonoBehaviour
         EventBus<InitializeEnemySpawnersEvent>.OnEvent += PopulateSpawners;
         EventBus<EnemySpawnEvent>.OnEvent += AddEnemy;
         EventBus<StartWaveEvent>.OnEvent += StartWave;
+        EventBus<EnemyDeathEvent>.OnEvent += RemoveEnemy;
     }
 
     void OnDestroy()
@@ -42,6 +41,7 @@ public class WaveManager : MonoBehaviour
         EventBus<InitializeEnemySpawnersEvent>.OnEvent -= PopulateSpawners;
         EventBus<EnemySpawnEvent>.OnEvent -= AddEnemy;
         EventBus<StartWaveEvent>.OnEvent -= StartWave;
+        EventBus<EnemyDeathEvent>.OnEvent -= RemoveEnemy;
     }
 
     void Start()
@@ -58,6 +58,14 @@ public class WaveManager : MonoBehaviour
     void AddEnemy(EnemySpawnEvent e)
     {
         currentEnemies.Add(e.enemy);
+    }
+
+    void RemoveEnemy(EnemyDeathEvent e)
+    {
+        if (currentEnemies.Contains(e.enemy))
+        {
+            currentEnemies.Remove(e.enemy);
+        }
     }
 
     void StartWave(StartWaveEvent e)

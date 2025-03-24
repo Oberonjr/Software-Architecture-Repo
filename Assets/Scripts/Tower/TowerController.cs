@@ -57,6 +57,7 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("OnPointerClick");
         EventBus<SelectTowerEvent>.Publish(new SelectTowerEvent(this));
     }
 
@@ -95,6 +96,15 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
     private void RemoveEnemyTarget(Transform enemy)
     {
         if(target.Contains(enemy)) target.Remove(enemy);
+    }
+
+    public void UpgradeTower()
+    {
+        Node currentNode = GridManager.Instance.GetNode(transform.position);
+        TowerController upgradeTower = Instantiate(towerStats.stats.upgradeTower, currentNode.GridPosition, Quaternion.identity);
+        EconomyManager.Instance.SpendMoney(upgradeTower.TowerStats.stats.cost);
+        currentNode.placedObject = upgradeTower.gameObject;
+        Destroy(this.gameObject);
     }
     
     private void AttackRepeating()
