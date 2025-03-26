@@ -6367,6 +6367,7 @@ MonoBehaviour:
   ignoreClickLayer:
     serializedVersion: 2
     m_Bits: 2097152
+  canBuild: 1
 --- !u!114 &1558057282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6450,7 +6451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19be5d42bdc38cb478776bb0b16b1e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentWaveIndex: 1
+  _currentWaveIndex: 0
   waves:
   - {fileID: 11400000, guid: 742064433755cb948aa6ff70d83030f9, type: 2}
   - {fileID: 11400000, guid: 615bdc2f7267bce4fa6e9e17e66adb29, type: 2}

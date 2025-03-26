@@ -6,12 +6,27 @@ using UnityEngine.UIElements;
 
 public class InputManager : MonoBehaviour
 {
+    private static InputManager _instance;
+    public static InputManager Instance => _instance;
+    
     
     [SerializeField]private LayerMask ignoreClickLayer;
     private Camera cam;
     private bool _enableHover;
-    private bool _canBuild = true;
+    [HideInInspector]public bool canBuild = true;
 
+    void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     void Start()
     {
         cam = Camera.main;
@@ -36,7 +51,7 @@ public class InputManager : MonoBehaviour
             EndTowerSelection();
         }
 
-        if (_canBuild)
+        if (canBuild)
         {
             if (Input.anyKeyDown)
             {
@@ -67,12 +82,12 @@ public class InputManager : MonoBehaviour
 
     void EnableBuild(StartBuildPhaseEvent e)
     {
-        _canBuild = true;
+        canBuild = true;
     }
 
     void DisableBuild(StartWaveEvent e)
     {
-        _canBuild = false;
+        canBuild = false;
     }
     
     Node ClickedNode()

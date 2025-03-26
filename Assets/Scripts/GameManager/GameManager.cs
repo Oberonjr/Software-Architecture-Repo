@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
 
     public void StartNextWave()
     {
-        StopCoroutine(BuildPhaseTimer());
+        StopAllCoroutines();
         _stateMachine.ChangeState(new CombatState(_stateMachine));
     }
 

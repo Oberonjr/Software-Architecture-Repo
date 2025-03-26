@@ -37,7 +37,8 @@ public class TowerSelectButton : MonoBehaviour
     
     public void QueueTower()
     {
-        EventBus<SelectTowerToBuildEvent>.Publish(new SelectTowerToBuildEvent(towerSelectKey));
+        if(InputManager.Instance.canBuild)
+            EventBus<SelectTowerToBuildEvent>.Publish(new SelectTowerToBuildEvent(towerSelectKey));
     }
 
     void CanAffordTower()
