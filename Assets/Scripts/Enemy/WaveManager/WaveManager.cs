@@ -6,17 +6,17 @@ public class WaveManager : MonoBehaviour
 {
     private static WaveManager _instance;
     public static WaveManager Instance => _instance;
-    
+
+    public List<Wave> Waves => waves;
+    public int CurrentWaveIndex => _currentWaveIndex;
     //Serialized for the sake of testing
     [SerializeField]
     private int _currentWaveIndex = 0;
     [SerializeField]private List<Wave> waves;
-    [HideInInspector] public int currentWaveIndex;
     [HideInInspector] public List<EnemyStats> currentEnemies = new List<EnemyStats>();
-    private List<EnemySpawner> spawners = new List<EnemySpawner>();
+    private List<EnemySpawner> _spawners = new List<EnemySpawner>();
     private Wave _currentWave;
     private EnemyGroup _currentGroup;
-    private int _currentGroupIndex = 0;
     private int _currentSpawnerIndex = 0;
     private bool _spawningGroup = false;
 
@@ -52,7 +52,7 @@ public class WaveManager : MonoBehaviour
 
     void PopulateSpawners(InitializeEnemySpawnersEvent e)
     {
-        spawners.Add(e.spawner);
+        _spawners.Add(e.spawner);
     }
 
     void AddEnemy(EnemySpawnEvent e)
@@ -82,9 +82,12 @@ public class WaveManager : MonoBehaviour
         }
 
         yield return new WaitUntil(() => currentEnemies.Count == 0);
-        _currentWaveIndex++;
-        _currentWave = waves[_currentWaveIndex];
-        EventBus<EndWaveEvent>.Publish(new EndWaveEvent(_currentWaveIndex));
+        if (_currentWaveIndex + 1 < waves.Count)
+        {
+            _currentWaveIndex++;
+            _currentWave = waves[_currentWaveIndex];
+        }
+        GameManager.Instance.StartBuildPhase();
 
     }
 
@@ -93,11 +96,11 @@ public class WaveManager : MonoBehaviour
         _spawningGroup = true;
         for (int i = 0; i < group.amount; i++)
         {
-            spawners[_currentSpawnerIndex].SpawnEnemy(group.enemyType);
-            _currentSpawnerIndex = (_currentSpawnerIndex + 1) % spawners.Count;
+            _spawners[_currentSpawnerIndex].SpawnEnemy(group.enemyType);
+            _currentSpawnerIndex = (_currentSpawnerIndex + 1) % _spawners.Count;
             yield return new WaitForSeconds(group.spacing);
         }
         _spawningGroup = false;
-        _currentGroupIndex++;
+        //_currentGroupIndex++;
     }
 }

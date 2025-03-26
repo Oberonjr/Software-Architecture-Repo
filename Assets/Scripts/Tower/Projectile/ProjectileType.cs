@@ -15,7 +15,7 @@ public class ProjectileType : MonoBehaviour
 {
     [HideInInspector]public int damage;
     [HideInInspector]public float pierce;
-    //[HideInInspector]
+    [HideInInspector]
     public List<ConditionParameters> applyConditions;
     
 
@@ -27,7 +27,7 @@ public class ProjectileType : MonoBehaviour
     public void HandleTrigger(Collider col)
     {
         GameObject collided = col.gameObject;
-        Debug.Log("Collided with: " + col.gameObject.name);
+        //Debug.Log("Collided with: " + col.gameObject.name);
         if (collided.CompareTag("Enemy"))
         {
             EnemyContact(collided);

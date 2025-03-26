@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]private TMP_Text moneyText;
     [SerializeField]private TMP_Text timeText;
     [SerializeField]private TMP_Text healthText;
+    [SerializeField]private TMP_Text waveText;
     
     void Awake()
     {
@@ -24,12 +25,23 @@ public class UIManager : MonoBehaviour
         
         EventBus<UpdateHealthEvent>.OnEvent += UpdateHealthText;
         EventBus<UpdateMoneyBalannceEvent>.OnEvent += UpdateMoneyText;
+        EventBus<UpdateTimerEvent>.OnEvent += UpdateTimeText;
+        EventBus<StartBuildPhaseEvent>.OnEvent += EnableTimerText;
+        EventBus<StartWaveEvent>.OnEvent += UpdateWaveText;
+    }
+
+    void Start()
+    {
+        UpdateWaveText();
     }
 
     void OnDestroy()
     {
         EventBus<UpdateHealthEvent>.OnEvent -= UpdateHealthText;
         EventBus<UpdateMoneyBalannceEvent>.OnEvent -= UpdateMoneyText;
+        EventBus<UpdateTimerEvent>.OnEvent -= UpdateTimeText;
+        EventBus<StartBuildPhaseEvent>.OnEvent -= EnableTimerText;
+        EventBus<StartWaveEvent>.OnEvent -= UpdateWaveText;
     }
 
     void UpdateHealthText(UpdateHealthEvent e)
@@ -40,6 +52,21 @@ public class UIManager : MonoBehaviour
     void UpdateMoneyText(UpdateMoneyBalannceEvent e)
     {
         moneyText.text = e.amount.ToString();
-            
+    }
+
+    void UpdateTimeText(UpdateTimerEvent e)
+    {
+        timeText.text = "Time left to build: "+ e.time;
+    }
+
+    void EnableTimerText(StartBuildPhaseEvent e)
+    {
+        timeText.gameObject.SetActive(true);
+    }
+
+    void UpdateWaveText(StartWaveEvent e = null)
+    {
+        timeText.gameObject.SetActive(false);
+        waveText.text = (WaveManager.Instance.CurrentWaveIndex + 1) + " / " + WaveManager.Instance.Waves.Count;
     }
 }

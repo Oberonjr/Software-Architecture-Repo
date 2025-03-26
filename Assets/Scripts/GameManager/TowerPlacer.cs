@@ -41,6 +41,8 @@ public class TowerPlacer : MonoBehaviour
         EventBus<SelectTowerToBuildEvent>.OnEvent -= QueueTowerToBuild;
     }
 
+    
+    
     void QueueTowerToBuild(SelectTowerToBuildEvent e)
     {
         if(_previewTower != null)Destroy(_previewTower.gameObject);

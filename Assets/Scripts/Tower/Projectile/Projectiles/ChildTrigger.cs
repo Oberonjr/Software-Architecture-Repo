@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class ChildTrigger : MonoBehaviour
 {
-    ProjectileType projectileType;
+    ProjectileType _projectileType;
     // Start is called before the first frame update
     void Start()
     {
-        projectileType = GetComponentInParent<ProjectileType>();
+        _projectileType = GetComponentInParent<ProjectileType>();
     }
 
+    //HALLOOOO PAPA YAHHH I WANT DA LOLLIPOP
     void OnTriggerEnter(Collider other)
     {
-        projectileType.HandleTrigger(other);
+        _projectileType.HandleTrigger(other);
     }
 }

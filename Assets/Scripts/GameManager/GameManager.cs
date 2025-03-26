@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -12,9 +13,11 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool isSpedUp;
 
     [SerializeField] private int maxHealth;
-    private int currentHealth;
+    [SerializeField] private int buildTime;
+    private int _currentHealth;
 
-    private TowerController currentSelectedTower;
+    private TowerController _currentSelectedTower;
+    private StateMachine _stateMachine;
 
     private void Awake()
     {
@@ -26,15 +29,17 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        _stateMachine = new StateMachine();
     }
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        _currentHealth = maxHealth;
         EventBus<SelectTowerEvent>.OnEvent += UpdateCurrentTower;
         EventBus<DeselectTowerEvent>.OnEvent += DeselectTower;
         EventBus<ModifyHealthEvent>.OnEvent += ChangeHealth;
-        EventBus<UpdateHealthEvent>.Publish(new UpdateHealthEvent(currentHealth));
+        EventBus<UpdateHealthEvent>.Publish(new UpdateHealthEvent(_currentHealth));
+        EventBus<StartBuildPhaseEvent>.OnEvent += StartTimer;
     }
 
     private void OnDestroy()
@@ -42,27 +47,51 @@ public class GameManager : MonoBehaviour
         EventBus<SelectTowerEvent>.OnEvent -= UpdateCurrentTower;
         EventBus<DeselectTowerEvent>.OnEvent -= DeselectTower;
         EventBus<ModifyHealthEvent>.OnEvent -= ChangeHealth;
+        EventBus<StartBuildPhaseEvent>.OnEvent -= StartTimer;
     }
 
     void UpdateCurrentTower(SelectTowerEvent e)
     {
-        if (currentSelectedTower != null)
+        if (_currentSelectedTower != null)
         {
-            currentSelectedTower.ToggleRangeIndicator();
+            _currentSelectedTower.ToggleRangeIndicator();
         }
-        currentSelectedTower = e.tower;
-        currentSelectedTower.ToggleRangeIndicator();
+        _currentSelectedTower = e.tower;
+        _currentSelectedTower.ToggleRangeIndicator();
+    }
+
+    private void Update()
+    {
+        _stateMachine.Update();
     }
 
     void DeselectTower(DeselectTowerEvent e)
     {
-        if (currentSelectedTower != null)
+        if (_currentSelectedTower != null)
         {
-            currentSelectedTower.ToggleRangeIndicator();
+            _currentSelectedTower.ToggleRangeIndicator();
         }
-        currentSelectedTower = null;
+        _currentSelectedTower = null;
     }
 
+    void StartTimer(StartBuildPhaseEvent e)
+    {
+        StartCoroutine(BuildPhaseTimer());
+    }
+    
+    IEnumerator BuildPhaseTimer()
+    {
+        float timeLeft = buildTime;
+        while (timeLeft > 0)
+        {
+            timeLeft -= Time.deltaTime;
+            EventBus<UpdateTimerEvent>.Publish(new UpdateTimerEvent((int)timeLeft));
+            yield return new WaitForSeconds(1f);
+            timeLeft--;
+        }
+        StartNextWave();
+    }
+    
     public void ToggleGameSpeed()
     {
         isSpedUp = !isSpedUp;
@@ -71,14 +100,20 @@ public class GameManager : MonoBehaviour
 
     public void StartNextWave()
     {
-        EventBus<StartWaveEvent>.Publish(new StartWaveEvent());
+        StopCoroutine(BuildPhaseTimer());
+        _stateMachine.ChangeState(new CombatState(_stateMachine));
+    }
+
+    public void StartBuildPhase()
+    {
+        _stateMachine.ChangeState(new BuildState(_stateMachine));
     }
 
     void ChangeHealth(ModifyHealthEvent e)
     {
-        currentHealth += e.healthChange;
-        EventBus<UpdateHealthEvent>.Publish(new UpdateHealthEvent(currentHealth));
-        if (currentHealth >= 0)
+        _currentHealth += e.healthChange;
+        EventBus<UpdateHealthEvent>.Publish(new UpdateHealthEvent(_currentHealth));
+        if (_currentHealth >= 0)
         {
             EventBus<GameOverEvent>.Publish(new GameOverEvent());
         }

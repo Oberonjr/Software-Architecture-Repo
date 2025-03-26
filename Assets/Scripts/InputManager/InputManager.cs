@@ -10,18 +10,23 @@ public class InputManager : MonoBehaviour
     [SerializeField]private LayerMask ignoreClickLayer;
     private Camera cam;
     private bool _enableHover;
+    private bool _canBuild = true;
 
     void Start()
     {
         cam = Camera.main;
         EventBus<ClickNodeEvent>.OnEvent += CheckClickedNode;
         EventBus<ToggleHoverEvent>.OnEvent += ToggleHover;
+        EventBus<StartBuildPhaseEvent>.OnEvent += EnableBuild;
+        EventBus<StartWaveEvent>.OnEvent += DisableBuild;
     }
 
     private void OnDestroy()
     {
         EventBus<ClickNodeEvent>.OnEvent -= CheckClickedNode;
         EventBus<ToggleHoverEvent>.OnEvent -= ToggleHover;
+        EventBus<StartBuildPhaseEvent>.OnEvent -= EnableBuild;
+        EventBus<StartWaveEvent>.OnEvent -= DisableBuild;
     }
 
     private void Update()
@@ -31,31 +36,45 @@ public class InputManager : MonoBehaviour
             EndTowerSelection();
         }
 
-        if (Input.anyKeyDown)
+        if (_canBuild)
         {
-            foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
+            if (Input.anyKeyDown)
             {
-                if (Input.GetKeyDown(key))
+                foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
                 {
-                    EventBus<SelectTowerToBuildEvent>.Publish(new SelectTowerToBuildEvent(key));
+                    if (Input.GetKeyDown(key))
+                    {
+                        EventBus<SelectTowerToBuildEvent>.Publish(new SelectTowerToBuildEvent(key));
+                    }
                 }
+            }
+        
+            if (Input.GetMouseButtonDown(0))
+            {
+                Node clickedNode = ClickedNode();
+                if(clickedNode != null) EventBus<ClickNodeEvent>.Publish(new ClickNodeEvent(clickedNode));
+            }
+
+            if (_enableHover)
+            {
+                Node hoverNode = ClickedNode();
+                if(hoverNode != null) EventBus<HoverNodeEvent>.Publish(new HoverNodeEvent(hoverNode));
             }
         }
         
-        if (Input.GetMouseButtonDown(0))
-        {
-            Node clickedNode = ClickedNode();
-            if(clickedNode != null) EventBus<ClickNodeEvent>.Publish(new ClickNodeEvent(clickedNode));
-        }
-
-        if (_enableHover)
-        {
-            Node hoverNode = ClickedNode();
-            if(hoverNode != null) EventBus<HoverNodeEvent>.Publish(new HoverNodeEvent(hoverNode));
-        }
         
     }
 
+    void EnableBuild(StartBuildPhaseEvent e)
+    {
+        _canBuild = true;
+    }
+
+    void DisableBuild(StartWaveEvent e)
+    {
+        _canBuild = false;
+    }
+    
     Node ClickedNode()
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);

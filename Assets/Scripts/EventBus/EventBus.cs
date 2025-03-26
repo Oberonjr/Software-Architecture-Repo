@@ -203,3 +203,14 @@ public class EndWaveEvent : Event
     }
 }
 
+public class StartBuildPhaseEvent : Event{}
+
+public class UpdateTimerEvent : Event
+{
+    public int time;
+
+    public UpdateTimerEvent(int pTime)
+    {
+        time = pTime;
+    }
+}

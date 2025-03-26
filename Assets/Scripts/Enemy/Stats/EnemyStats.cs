@@ -66,7 +66,7 @@ public class EnemyStats : MonoBehaviour, IDamageable
         {
             _visualsManager.ShowDamage(damage + DamageVulnerability);
         }
-        Debug.Log("Enemy took " + (damage + DamageVulnerability) + " damage, and has " + _currentHealth + " remaining health");
+        //Debug.Log("Enemy took " + (damage + DamageVulnerability) + " damage, and has " + _currentHealth + " remaining health");
     }
 
     public void ApplyCondition(ConditionParameters param)
@@ -76,7 +76,7 @@ public class EnemyStats : MonoBehaviour, IDamageable
     
     private void Die()
     {
-        Debug.Log("Enemy died");
+        //Debug.Log("Enemy died");
         _enemyController.enabled = false;
         _visualsManager.ShowGold(deathReward);
         Destroy(gameObject, 0.5f);

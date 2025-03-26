@@ -9,7 +9,7 @@ public struct EnemyGroup
 {
     public EnemyStats enemyType;
     public int amount;
-    public int spacing;
+    public float spacing;
 }
 
 
