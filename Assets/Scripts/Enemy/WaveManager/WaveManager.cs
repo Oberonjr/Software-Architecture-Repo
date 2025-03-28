@@ -10,6 +10,7 @@ public class WaveManager : MonoBehaviour
     public List<Wave> Waves => waves;
     public int CurrentWaveIndex => _currentWaveIndex;
     //Serialized for the sake of testing
+    [Range(0, 4)]
     [SerializeField]
     private int _currentWaveIndex = 0;
     [SerializeField]private List<Wave> waves;
@@ -19,6 +20,7 @@ public class WaveManager : MonoBehaviour
     private EnemyGroup _currentGroup;
     private int _currentSpawnerIndex = 0;
     private bool _spawningGroup = false;
+    
 
     void Awake()
     {
@@ -86,8 +88,12 @@ public class WaveManager : MonoBehaviour
         {
             _currentWaveIndex++;
             _currentWave = waves[_currentWaveIndex];
+            GameManager.Instance.StartBuildPhase();
         }
-        GameManager.Instance.StartBuildPhase();
+        else
+        {
+            EventBus<WinEvent>.Publish(new WinEvent());
+        }
 
     }
 

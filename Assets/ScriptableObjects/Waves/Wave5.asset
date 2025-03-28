@@ -12,4 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98e0e5c8f27bad4a879c28947b2ac59, type: 3}
   m_Name: Wave5
   m_EditorClassIdentifier: 
-  waveGroups: []
+  waveGroups:
+  - enemyType: {fileID: -2022823335035184686, guid: 58d71b10359a7444eac07433664b7be4, type: 3}
+    amount: 30
+    spacing: 0.5
+  - enemyType: {fileID: -2022823335035184686, guid: 58d71b10359a7444eac07433664b7be4, type: 3}
+    amount: 1
+    spacing: 3
+  - enemyType: {fileID: -2022823335035184686, guid: 7f74f4310774fbc4d8ade8c651b73034, type: 3}
+    amount: 5
+    spacing: 0.75
+  - enemyType: {fileID: -2022823335035184686, guid: 7628bba2335b27d43bffc7da3a7538b6, type: 3}
+    amount: 1
+    spacing: 3
+  - enemyType: {fileID: -2022823335035184686, guid: 7f74f4310774fbc4d8ade8c651b73034, type: 3}
+    amount: 20
+    spacing: 0.5
+  - enemyType: {fileID: -2022823335035184686, guid: 30c448deb90c5674f91349b2a51ed5df, type: 3}
+    amount: 15
+    spacing: 0.2
+  - enemyType: {fileID: -2022823335035184686, guid: 7628bba2335b27d43bffc7da3a7538b6, type: 3}
+    amount: 30
+    spacing: 0.1
+  - enemyType: {fileID: -2022823335035184686, guid: 58d71b10359a7444eac07433664b7be4, type: 3}
+    amount: 20
+    spacing: 0.2
+  - enemyType: {fileID: -2022823335035184686, guid: 30c448deb90c5674f91349b2a51ed5df, type: 3}
+    amount: 30
+    spacing: 0.75
+  - enemyType: {fileID: -2022823335035184686, guid: 7f74f4310774fbc4d8ade8c651b73034, type: 3}
+    amount: 25
+    spacing: 0.45
+  - enemyType: {fileID: -2022823335035184686, guid: 7628bba2335b27d43bffc7da3a7538b6, type: 3}
+    amount: 10
+    spacing: 0.05
+  - enemyType: {fileID: -2022823335035184686, guid: 30c448deb90c5674f91349b2a51ed5df, type: 3}
+    amount: 15
+    spacing: 0.3

@@ -14,6 +14,7 @@ public class EUnityPathfinding : MonoBehaviour, IPathFinding
     }
     public void MoveTowardsTarget(Vector3 targetPosition, float speed)
     {
+        if(agent == null) return;
         agent.speed = speed;
         agent.SetDestination(targetPosition);
     }

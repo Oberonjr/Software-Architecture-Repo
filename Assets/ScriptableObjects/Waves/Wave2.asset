@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveGroups:
   - enemyType: {fileID: -2022823335035184686, guid: 58d71b10359a7444eac07433664b7be4, type: 3}
-    amount: 5
+    amount: 10
     spacing: 0.5
   - enemyType: {fileID: -2022823335035184686, guid: 7628bba2335b27d43bffc7da3a7538b6, type: 3}
-    amount: 7
+    amount: 10
     spacing: 0.75
   - enemyType: {fileID: -2022823335035184686, guid: 58d71b10359a7444eac07433664b7be4, type: 3}
     amount: 10
-    spacing: 0.3
+    spacing: 0.2
   - enemyType: {fileID: -2022823335035184686, guid: 7628bba2335b27d43bffc7da3a7538b6, type: 3}
-    amount: 4
+    amount: 7
     spacing: 0.2

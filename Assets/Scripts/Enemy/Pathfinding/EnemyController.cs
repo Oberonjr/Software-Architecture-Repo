@@ -37,7 +37,7 @@ public class EnemyController : MonoBehaviour
 
     public void ChangeSpeed(float modifier, float timer)
     {
-        currentSpeed -= modifier;
+        currentSpeed = Mathf.Max(1, currentSpeed - modifier);;
         float newSpeedTimer = timer;
         if (newSpeedTimer > 0)
         {

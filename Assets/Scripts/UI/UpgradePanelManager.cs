@@ -36,7 +36,7 @@ public class UpgradePanelManager : MonoBehaviour
         statsText.text = "Stats: \n" + "Damage: " + tStats.towerDamage + "\nRange: " + tStats.towerRange + "\nAttack interval: " + tStats.towerAttackInterval;
         TowerUpgradeButton upLog = upgradeButton.GetComponent<TowerUpgradeButton>();
 
-        if (tStats.upgradeTower == null)
+        if (tStats.upgradeTower == null || EconomyManager.Instance == null)
         {
             upgradeButton.gameObject.SetActive(false);
             upgradeStatsText.gameObject.SetActive(false);
@@ -50,7 +50,7 @@ public class UpgradePanelManager : MonoBehaviour
             upLog.towerToUpgrade = e.tower;
             upLog.UpdateCostText();
             Stats uStats = tStats.upgradeTower.TowerStats.stats;
-            upgradeStatsText.text = "Upgarde stats: \n" + "Damage: " + uStats.towerDamage + "\nRange: " + uStats.towerRange + "\nAttack interval: " + uStats.towerAttackInterval;
+            upgradeStatsText.text = "Upgrade stats: \n" + "Damage: " + uStats.towerDamage + "\nRange: " + uStats.towerRange + "\nAttack interval: " + uStats.towerAttackInterval;
         }
     }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Udar.SceneManager;
 
 public abstract class Event{}
 
@@ -185,10 +186,9 @@ public class UpdateHealthEvent : Event
     }
 }
 
-public class GameOverEvent : Event
-{
-    
-}
+public class GameOverEvent : Event {}
+
+public class WinEvent: Event{}
 
 //Wave events
 public class StartWaveEvent: Event{}
@@ -212,5 +212,16 @@ public class UpdateTimerEvent : Event
     public UpdateTimerEvent(int pTime)
     {
         time = pTime;
+    }
+}
+
+//Scene management
+public class SwitchSceneEvent: Event
+{
+    public SceneField scene;
+
+    public SwitchSceneEvent(SceneField pScene)
+    {
+        scene = pScene;
     }
 }

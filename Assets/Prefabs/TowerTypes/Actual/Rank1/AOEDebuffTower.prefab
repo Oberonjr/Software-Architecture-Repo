@@ -233,15 +233,15 @@ MonoBehaviour:
       cost: 550
       upgradeTower: {fileID: 1066843008517103473, guid: b19be7a1fadaf18418a4bd7d45bb93e7, type: 3}
       maxIndividualTargets: 0
-      towerDamage: 1
-      towerRange: 30
-      towerAttackInterval: 3.1
+      towerDamage: 4
+      towerRange: 18
+      towerAttackInterval: 3.3
       projectileSpeed: 50
       projectilePierce: 7
       projectileConditions:
       - condition: 1
         intensity: 1
-        duration: 3
+        duration: 5
       expandingAOEParams:
         AOEDamage: 0
         expansionSpeed: 0

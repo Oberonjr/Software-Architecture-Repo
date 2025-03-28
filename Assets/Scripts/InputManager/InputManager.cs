@@ -51,7 +51,7 @@ public class InputManager : MonoBehaviour
             EndTowerSelection();
         }
 
-        if (canBuild)
+        if (canBuild && GridManager.Instance != null)
         {
             if (Input.anyKeyDown)
             {

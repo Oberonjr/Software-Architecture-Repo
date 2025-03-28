@@ -16,3 +16,9 @@ MonoBehaviour:
   - enemyType: {fileID: -2022823335035184686, guid: 58d71b10359a7444eac07433664b7be4, type: 3}
     amount: 15
     spacing: 0.2
+  - enemyType: {fileID: -2022823335035184686, guid: 58d71b10359a7444eac07433664b7be4, type: 3}
+    amount: 5
+    spacing: 1
+  - enemyType: {fileID: -2022823335035184686, guid: 58d71b10359a7444eac07433664b7be4, type: 3}
+    amount: 7
+    spacing: 0.5

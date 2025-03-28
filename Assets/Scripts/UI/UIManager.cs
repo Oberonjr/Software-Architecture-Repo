@@ -12,6 +12,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]private TMP_Text healthText;
     [SerializeField]private TMP_Text waveText;
     
+    [SerializeField]private GameObject winScreen;
+    [SerializeField]private GameObject gameOverPanel;
+    [SerializeField]private GameObject pausePanel;
+    
     void Awake()
     {
         if (instance == null)
@@ -28,6 +32,9 @@ public class UIManager : MonoBehaviour
         EventBus<UpdateTimerEvent>.OnEvent += UpdateTimeText;
         EventBus<StartBuildPhaseEvent>.OnEvent += EnableTimerText;
         EventBus<StartWaveEvent>.OnEvent += UpdateWaveText;
+        EventBus<WinEvent>.OnEvent += ShowWinScreen;
+        EventBus<GameOverEvent>.OnEvent += ShowGameOverScreen;
+        
     }
 
     void Start()
@@ -42,6 +49,8 @@ public class UIManager : MonoBehaviour
         EventBus<UpdateTimerEvent>.OnEvent -= UpdateTimeText;
         EventBus<StartBuildPhaseEvent>.OnEvent -= EnableTimerText;
         EventBus<StartWaveEvent>.OnEvent -= UpdateWaveText;
+        EventBus<WinEvent>.OnEvent -= ShowWinScreen;
+        EventBus<GameOverEvent>.OnEvent -= ShowGameOverScreen;
     }
 
     void UpdateHealthText(UpdateHealthEvent e)
@@ -56,17 +65,43 @@ public class UIManager : MonoBehaviour
 
     void UpdateTimeText(UpdateTimerEvent e)
     {
-        timeText.text = "Time left to build: "+ e.time;
+        if (timeText != null)
+        {
+            timeText.text = "Time left to build: "+ e.time;
+        }
     }
 
     void EnableTimerText(StartBuildPhaseEvent e)
     {
-        timeText.gameObject.SetActive(true);
+        if (timeText != null)
+        {
+            timeText.gameObject.SetActive(true);
+        }
     }
 
     void UpdateWaveText(StartWaveEvent e = null)
     {
-        timeText.gameObject.SetActive(false);
-        waveText.text = (WaveManager.Instance.CurrentWaveIndex + 1) + " / " + WaveManager.Instance.Waves.Count;
+        if (timeText != null)
+        {
+            timeText.gameObject.SetActive(false);
+            waveText.text = (WaveManager.Instance.CurrentWaveIndex + 1) + " / " + WaveManager.Instance.Waves.Count;
+        }
+    }
+
+    void ShowWinScreen(WinEvent e)
+    {
+        winScreen.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    void ShowGameOverScreen(GameOverEvent e)
+    {
+        gameOverPanel.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    void ShowPauseScreen()
+    {
+        pausePanel.SetActive(true);
     }
 }

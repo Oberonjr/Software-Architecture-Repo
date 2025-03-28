@@ -14,6 +14,7 @@ public class ChildTrigger : MonoBehaviour
     //HALLOOOO PAPA YAHHH I WANT DA LOLLIPOP
     void OnTriggerEnter(Collider other)
     {
-        _projectileType.HandleTrigger(other);
+        if(_projectileType != null)
+            _projectileType.HandleTrigger(other);
     }
 }

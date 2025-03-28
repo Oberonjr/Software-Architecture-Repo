@@ -1427,7 +1427,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 89f71d76cb88faf4181a0793113686d8, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: c3e2b28f51001a143871fd6126f562e5, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1001 &532473330
 PrefabInstance:
@@ -2643,7 +2643,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 33
   m_Depth: -1
   m_CullingMask:
@@ -2668,13 +2668,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20782632, y: 0, z: 0, w: 0.97816575}
-  m_LocalPosition: {x: -19.1, y: 36.89, z: -91.85}
+  m_LocalRotation: {x: 0.4027467, y: 0, z: 0, w: 0.91531146}
+  m_LocalPosition: {x: -19.1, y: 64.4, z: -122.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 23.99, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 47.5, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4359,6 +4359,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSpedUp: 0
+  maxHealth: 0
+  buildTime: 0
 --- !u!114 &1558057281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4371,6 +4373,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a4ca62e9953c24f9b63903e321e985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ignoreClickLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  canBuild: 1
 --- !u!1 &1607079970
 GameObject:
   m_ObjectHideFlags: 0
@@ -5407,6 +5413,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4997494093980761224, guid: c9485e0a9903fd340878529087fb7455, type: 3}
+      propertyPath: dummyEnemy
+      value: 
+      objectReference: {fileID: -2022823335035184686, guid: 58d71b10359a7444eac07433664b7be4, type: 3}
     - target: {fileID: 4997494093980761224, guid: c9485e0a9903fd340878529087fb7455, type: 3}
       propertyPath: enemyTarget
       value: 

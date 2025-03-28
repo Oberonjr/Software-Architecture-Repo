@@ -57,7 +57,7 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("OnPointerClick");
+        //Debug.Log("OnPointerClick");
         EventBus<SelectTowerEvent>.Publish(new SelectTowerEvent(this));
     }
 

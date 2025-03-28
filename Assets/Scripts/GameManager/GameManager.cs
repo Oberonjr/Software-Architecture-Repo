@@ -100,8 +100,11 @@ public class GameManager : MonoBehaviour
 
     public void StartNextWave()
     {
-        StopAllCoroutines();
-        _stateMachine.ChangeState(new CombatState(_stateMachine));
+        if (InputManager.Instance.canBuild)
+        {
+            StopAllCoroutines();
+            _stateMachine.ChangeState(new CombatState(_stateMachine));
+        }
     }
 
     public void StartBuildPhase()
@@ -113,7 +116,7 @@ public class GameManager : MonoBehaviour
     {
         _currentHealth += e.healthChange;
         EventBus<UpdateHealthEvent>.Publish(new UpdateHealthEvent(_currentHealth));
-        if (_currentHealth >= 0)
+        if (_currentHealth <= 0)
         {
             EventBus<GameOverEvent>.Publish(new GameOverEvent());
         }

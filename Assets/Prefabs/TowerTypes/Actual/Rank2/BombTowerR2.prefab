@@ -80,17 +80,17 @@ MonoBehaviour:
       cost: 500
       upgradeTower: {fileID: 0}
       maxIndividualTargets: 1
-      towerDamage: 6
+      towerDamage: 22
       towerRange: 35
       towerAttackInterval: 2.8
-      projectileSpeed: 60
+      projectileSpeed: 80
       projectilePierce: 4
       projectileConditions: []
       expandingAOEParams:
         AOEDamage: 0
         expansionSpeed: 0
-        maxAOERadius: 8
-        expansionRadiusIncrement: 1
+        maxAOERadius: 12
+        expansionRadiusIncrement: 1.7
       projectilePrefab: {fileID: 3407865640744548001, guid: 64ffcb2d7ac146b4fb8e72aa18392e02, type: 3}
   _currentTargeting: 1
   _attacker: {fileID: 11400000, guid: 6a3367fa966874743ac17e42dbc2541a, type: 2}
@@ -364,6 +364,22 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: -7202642681064371264, guid: 138407f4a73ef5b478cc6a6ee1c46507, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7202642681064371264, guid: 138407f4a73ef5b478cc6a6ee1c46507, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7202642681064371264, guid: 138407f4a73ef5b478cc6a6ee1c46507, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7202642681064371264, guid: 138407f4a73ef5b478cc6a6ee1c46507, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -6848122650590715771, guid: 138407f4a73ef5b478cc6a6ee1c46507, type: 3}
       propertyPath: m_Layer
       value: 19
@@ -387,6 +403,30 @@ PrefabInstance:
     - target: {fileID: 8221363169187375746, guid: 138407f4a73ef5b478cc6a6ee1c46507, type: 3}
       propertyPath: m_Layer
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232308050088692061, guid: 138407f4a73ef5b478cc6a6ee1c46507, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232308050088692061, guid: 138407f4a73ef5b478cc6a6ee1c46507, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232308050088692061, guid: 138407f4a73ef5b478cc6a6ee1c46507, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232308050088692061, guid: 138407f4a73ef5b478cc6a6ee1c46507, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232308050088692061, guid: 138407f4a73ef5b478cc6a6ee1c46507, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232308050088692061, guid: 138407f4a73ef5b478cc6a6ee1c46507, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

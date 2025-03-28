@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,14 +7,16 @@ using NaughtyAttributes;
 
 public class GridManager : MonoBehaviour
 {
-    private static GridManager instance;
+    private static GridManager _instance;
     [SerializeField]private Vector2Int gridSize;
+    [SerializeField]private Vector2Int gridAlignmentPosition;
     [SerializeField]private Tilemap tilemap;
-    [SerializeField]private int _cellSize;
+    [SerializeField]private int cellSize;
+    [SerializeField] private GameObject gridPreviewPrefab;
     private Node[,] grid;
     
     
-    public static GridManager Instance => instance;
+    public static GridManager Instance => _instance;
     
     #region Editor Testing Variables
     public GameObject _gridVisualizerPrefab;
@@ -21,11 +24,11 @@ public class GridManager : MonoBehaviour
     
     void Awake()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
         }
-        else if (instance != this)
+        else if (_instance != this)
         {
             Destroy(gameObject);
         }
@@ -37,6 +40,16 @@ public class GridManager : MonoBehaviour
         PopulatePath();
     }
 
+    private void Start()
+    {
+        EventBus<ToggleHoverEvent>.OnEvent += HandlePreview;
+    }
+
+    private void OnDestroy()
+    {
+        EventBus<ToggleHoverEvent>.OnEvent -= HandlePreview;
+    }
+
     void GenerateGrid()
     {
         grid = new Node[gridSize.x, gridSize.y];
@@ -45,7 +58,7 @@ public class GridManager : MonoBehaviour
             for (int y = 0; y < gridSize.y; y++)
             {
                 //Debug.Log(y);
-                Vector3 worldPos = new Vector3(x * _cellSize, 0, y * _cellSize);
+                Vector3 worldPos = new Vector3(x * cellSize, 0, y * cellSize);
                 grid[x, y] = new Node(worldPos);
             }
         }
@@ -66,8 +79,8 @@ public class GridManager : MonoBehaviour
     
     public Node GetNode(Vector3 worldPos)
     {
-        int x = Mathf.RoundToInt(worldPos.x / _cellSize);
-        int y = Mathf.RoundToInt(worldPos.z / _cellSize);
+        int x = Mathf.RoundToInt(worldPos.x / cellSize);
+        int y = Mathf.RoundToInt(worldPos.z / cellSize);
 
         //Debug.Log(x + ", " + y);
         
@@ -81,7 +94,46 @@ public class GridManager : MonoBehaviour
 
     void AlignTilemapToGrid()
     {
-        tilemap.transform.position = grid[(int)(gridSize.x / 2), (int)(gridSize.y / 2)].GridPosition + Vector3.up * 0.5f;
+        tilemap.transform.position = grid[gridAlignmentPosition.x, gridAlignmentPosition.y].GridPosition + Vector3.up * 0.5f;
+    }
+    
+    List<GameObject> previewVisualizers = new List<GameObject>();
+    private bool isPreviewing;
+    private void HandlePreview(ToggleHoverEvent e)
+    {
+        if (e.hoverValue)
+        {
+            PreviewPlacement();
+        }
+        else
+        {
+            ClearPreview();
+        }
+    }
+    
+    public void PreviewPlacement()
+    {
+        if(isPreviewing || gridPreviewPrefab == null) return;
+        isPreviewing = true;
+        if(grid == null) GenerateGrid();
+        foreach (Node n in grid)
+        {
+            if (n.placedObject != null) continue;
+            GameObject visual = Instantiate(gridPreviewPrefab, n.GridPosition, Quaternion.identity);
+            visual.transform.localScale = new Vector3(cellSize / 1.15f, cellSize / 1.15f, cellSize / 1.15f);
+            visual.transform.parent = tilemap.transform;
+            previewVisualizers.Add(visual);
+        }
+    }
+    
+    public void ClearPreview()
+    {
+        foreach (GameObject go in previewVisualizers)
+        {
+            Destroy(go);
+        }
+        previewVisualizers.Clear();
+        isPreviewing = false;
     }
     
     //Testing
@@ -96,7 +148,8 @@ public class GridManager : MonoBehaviour
         foreach (Node n in grid)
         {
             GameObject visual = Instantiate(_gridVisualizerPrefab, n.GridPosition, Quaternion.identity);
-            visual.transform.localScale = new Vector3(_cellSize / 1.15f, _cellSize / 1.15f, _cellSize / 1.15f);
+            visual.transform.localScale = new Vector3(cellSize / 1.15f, cellSize / 1.15f, cellSize / 1.15f);
+            
             if (n.placedObject != null)
             {
                 visual.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
