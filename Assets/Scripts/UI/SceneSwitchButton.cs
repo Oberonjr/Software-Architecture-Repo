@@ -24,4 +24,9 @@ public class SceneSwitchButton : MonoBehaviour
         Time.timeScale = 1;
         SceneSwitcherManager.Instance.ReloadLevel();
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

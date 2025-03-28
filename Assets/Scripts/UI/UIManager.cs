@@ -84,7 +84,7 @@ public class UIManager : MonoBehaviour
         if (timeText != null)
         {
             timeText.gameObject.SetActive(false);
-            waveText.text = (WaveManager.Instance.CurrentWaveIndex + 1) + " / " + WaveManager.Instance.Waves.Count;
+            waveText.text = "Wave: " + (WaveManager.Instance.CurrentWaveIndex + 1) + " / " + WaveManager.Instance.Waves.Count;
         }
     }
 
