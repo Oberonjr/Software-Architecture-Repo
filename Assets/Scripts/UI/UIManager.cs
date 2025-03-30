@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+/*
+ * Manages all general UI elements
+ * Updates the values through a lot of events listeners
+ * In the case of showing the alternative panels, also stops the game time
+ */
 public class UIManager : MonoBehaviour
 {
     private static UIManager instance;

@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Main script that handles enemy movement 
+ * It also handles changes in speed caused by slow status effects
+ */
 public class EnemyController : MonoBehaviour
 {
     private IPathFinding pathFinder;

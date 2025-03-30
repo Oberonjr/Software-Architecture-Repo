@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Main script that manages Waves progression and spawning
+ * Communicates through events when the wave starts and ends
+ * Goes through the list of all present SpawnPoints, and cycles through them when spawning enemies
+ * For each EnemyGroup in the Wave list, it spawns the whole group
+ * It waits for all the currentEnemies to be emptied before sending the signal that the wave is over
+ */
 public class WaveManager : MonoBehaviour
 {
     private static WaveManager _instance;
@@ -107,6 +114,5 @@ public class WaveManager : MonoBehaviour
             yield return new WaitForSeconds(group.spacing);
         }
         _spawningGroup = false;
-        //_currentGroupIndex++;
     }
 }

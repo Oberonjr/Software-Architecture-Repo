@@ -5,6 +5,11 @@ using Udar.SceneManager;
 
 public abstract class Event{}
 
+/*
+ * Main communication avenue for the codebase
+ * Uses OnEvent for listeners
+ * and Publish for sending out the signals
+ */
 public class EventBus<T> where T : Event
 {
     public static event Action<T> OnEvent;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+//Manages the visuals depending on upgrade affordability, and calls the TowerController's Upgrade() on press
+//Parented under the UpgradePanel object, so it receives the tower info from UpgradePanelManager
 public class TowerUpgradeButton : MonoBehaviour
 {
     [SerializeField] TMP_Text costText;

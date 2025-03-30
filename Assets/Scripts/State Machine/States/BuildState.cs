@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//The state when building is enabled on the grid
 public class BuildState : IGameState
 {
     StateMachine stateMachine;

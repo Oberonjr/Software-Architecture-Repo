@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Controls the velocity of a single projectile as per the shootingPoint->target vector
+//Also makes sure the projectile can destroy itself after some time if it does not collide
 public class ProjectileController : MonoBehaviour
 {
     [SerializeField] private float timer = 2f;

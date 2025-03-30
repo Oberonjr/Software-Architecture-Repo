@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/*
+ * Logic for the side panel buttons to queue up building the selected tower
+ * Also manages the cost text and button being interactable based on affordability
+ */
 public class TowerSelectButton : MonoBehaviour
 {
     [SerializeField] private KeyCode towerSelectKey;
@@ -16,12 +20,16 @@ public class TowerSelectButton : MonoBehaviour
 
     void Start()
     {
+        //I did the tower selection logic through the keybinds first. I then realized I needed the buttons for visuals
+        //I made the system liste to the events reading a keybind, and that's why the following line of code is SO awkward
+        //I should've made an overload for the event that just takes a towerController. Would've been simple, too.
         try
         {
-            towerStats = TowerPlacer.Instance.towersKeyMapping[towerSelectKey].TowerToSpawn.TowerStats;
+            towerStats = TowerPlacerManager.Instance.towersKeyMapping[towerSelectKey].TowerToSpawn.TowerStats;
         }
         catch (Exception e)
         {
+            Debug.Log(e);
             Debug.LogError("Couldn't find the key passed on button: " + this.gameObject.name + " in the dictionary");
             return;
         }

@@ -4,6 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/*
+ * Script present on a child of the main TowerController
+ * Dependent on a trigger SphereColldier
+ * Calculates and returns who the first enemy and last enemy to have entered the area are
+ * as well as the closest enemy to the tower
+ * Updates the TowerController's potential targets
+ */
+[RequireComponent(typeof(SphereCollider))]
 public class EnemyCheck : MonoBehaviour
 {
     [HideInInspector] public int enemyCount;
@@ -22,6 +30,7 @@ public class EnemyCheck : MonoBehaviour
     {
         enemiesInRange = new List<EnemyStats>();
         Range = GetComponent<SphereCollider>();
+        Range.isTrigger = true;
         EventBus<EnemyDeathEvent>.OnEvent += UpdateEnemyList;
     }
 
@@ -68,10 +77,6 @@ public class EnemyCheck : MonoBehaviour
         if (enemiesInRange.Count > 0)
         {
             enemyInRange = true;
-            for (int i = 0; i < enemiesInRange.Count; i++)
-            {
-                
-            }
             firstEnemy = enemiesInRange[0].transform.gameObject;
             lastEnemy = enemiesInRange.Last().transform.gameObject;
             closeEnemy = UpdateClosestEnemy();

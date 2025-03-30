@@ -2,22 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Handles the current money amount of the Player
+ * As well as checking if purchases are valid
+ * Modifies the remaining money according to relevant inputs
+ * And informs the UI parameters through events with the new balance
+ */
 public class EconomyManager : MonoBehaviour
 {
     [SerializeField] private int startingMoney = 100;
     [HideInInspector] 
     public int Money;
 
-    private static EconomyManager instance;
-    public static EconomyManager Instance => instance;
+    private static EconomyManager _instance;
+    public static EconomyManager Instance => _instance;
 
     void Awake()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
         }
-        else if (instance != this)
+        else if (_instance != this)
         {
             Destroy(gameObject);
         }

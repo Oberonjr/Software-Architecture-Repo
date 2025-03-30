@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Udar.SceneManager;
 
+//Logic for UI Buttons to change through the scenes
 public class SceneSwitchButton : MonoBehaviour
 {
     [SerializeField] SceneField scene;

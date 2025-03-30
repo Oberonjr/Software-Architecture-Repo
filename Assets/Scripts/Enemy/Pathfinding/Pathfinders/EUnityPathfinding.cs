@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+//Specific pathfinder implementation for Unity NavMesh system
 [RequireComponent(typeof(NavMeshAgent))]
 public class EUnityPathfinding : MonoBehaviour, IPathFinding
 {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Main container class for all tower stats
 [Serializable]
 public struct Stats
 {
@@ -20,6 +21,7 @@ public struct Stats
     public GameObject projectilePrefab;
 }
 
+//Class for the Tower's stats, implemented this way due to initial plans of having more functions here
 [Serializable]
 public class TowerStats
 {

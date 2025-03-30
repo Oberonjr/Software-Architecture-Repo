@@ -3,7 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyController), typeof(EnemyDebuffManager), typeof(EnemyVisualsManager))]
+
+/*
+ * Main script of the enemy, that mostly handles the stats
+ * Hosts the status and visuals handlers
+ * Communication between the various components are mostly done through events
+ * Main functions are TakeDamage and Die
+ */
+[RequireComponent(typeof(EnemyController), typeof(EnemyDebuffHandler), typeof(EnemyVisualsHandler))]
 public class EnemyStats : MonoBehaviour, IDamageable
 {
     [SerializeField]private int maxHealth;
@@ -13,8 +20,8 @@ public class EnemyStats : MonoBehaviour, IDamageable
 
     private int _currentHealth;
     private EnemyController _enemyController;
-    private EnemyDebuffManager _debuffManager;
-    private EnemyVisualsManager _visualsManager;
+    private EnemyDebuffHandler debuffHandler;
+    private EnemyVisualsHandler visualsHandler;
     
     private System.Action<Conditions> ClearDOT;
     
@@ -37,10 +44,10 @@ public class EnemyStats : MonoBehaviour, IDamageable
             Debug.LogError("No enemy controller attached. Which is a wonder, since it's a required component for this script. Fix your damn code jesus christ man.");
         }
 
-        _debuffManager = GetComponent<EnemyDebuffManager>();
-        _enemyController.ClearSlow += _debuffManager.ClearConditions;
-        _visualsManager = GetComponent<EnemyVisualsManager>();
-        _visualsManager.SetHealth(maxHealth);
+        debuffHandler = GetComponent<EnemyDebuffHandler>();
+        _enemyController.ClearSlow += debuffHandler.ClearConditions;
+        visualsHandler = GetComponent<EnemyVisualsHandler>();
+        visualsHandler.SetHealth(maxHealth);
     }
 
     private void Start()
@@ -50,35 +57,35 @@ public class EnemyStats : MonoBehaviour, IDamageable
 
     private void OnDestroy()
     {
-        _enemyController.ClearSlow -= _debuffManager.ClearConditions;
+        _enemyController.ClearSlow -= debuffHandler.ClearConditions;
         EventBus<EnemyDeathEvent>.Publish(new EnemyDeathEvent(this));
     }
 
     public void TakeDamage(int damage)
     {
         _currentHealth -= damage + DamageVulnerability;
-        _visualsManager.UpdateHealth(_currentHealth);
+        visualsHandler.UpdateHealth(_currentHealth);
         if (_currentHealth <= 0)
         {
             Die();
         }
         else
         {
-            _visualsManager.ShowDamage(damage + DamageVulnerability);
+            visualsHandler.ShowDamage(damage + DamageVulnerability);
         }
         //Debug.Log("Enemy took " + (damage + DamageVulnerability) + " damage, and has " + _currentHealth + " remaining health");
     }
 
     public void ApplyCondition(ConditionParameters param)
     {
-        _debuffManager.ApplyCondition(this, param);
+        debuffHandler.ApplyCondition(this, param);
     }
     
     private void Die()
     {
         //Debug.Log("Enemy died");
         _enemyController.enabled = false;
-        _visualsManager.ShowGold(deathReward);
+        visualsHandler.ShowGold(deathReward);
         Destroy(gameObject, 0.5f);
     }
 }

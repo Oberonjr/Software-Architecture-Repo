@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Extra script used for simulating an OnTriggerEnter on the projectile parent
+ * Rotating the parent for proper visuals messed up it's velocity
+ * So I rotate the child VFX instead
+ * Put a trigger collider on the child to have the most precise hitbox collision
+ */
 public class ChildTrigger : MonoBehaviour
 {
     ProjectileType _projectileType;
-    // Start is called before the first frame update
     void Start()
     {
         _projectileType = GetComponentInParent<ProjectileType>();
     }
-
-    //HALLOOOO PAPA YAHHH I WANT DA LOLLIPOP
+    
     void OnTriggerEnter(Collider other)
     {
         if(_projectileType != null)

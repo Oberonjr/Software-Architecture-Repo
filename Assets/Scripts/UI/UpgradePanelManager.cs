@@ -5,6 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/*
+ * Enables the UpgradePanel with the data of the clicked tower
+ * Script is on a parent object to the panel itself
+ * It also checks if the selected tower has an upgrade, and enables and updates
+ * the upgrade section accordingly
+ */
 public class UpgradePanelManager : MonoBehaviour
 {
     [SerializeField] GameObject upgradePanel;

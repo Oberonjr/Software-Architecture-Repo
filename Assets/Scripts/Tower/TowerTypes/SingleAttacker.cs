@@ -1,7 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
+ * Logic that shoots a projectile at the currently targeted enemy
+ * Handles all projectile stats, from damage to direction and rotation
+ * Checks if the projectile is of type Ground to ensure proper status application
+ */
 [CreateAssetMenu(fileName = "SingleAttacker", menuName = "Tower Types/Single Attacker")]
 public class SingleAttacker : AbstractAttacker
 {

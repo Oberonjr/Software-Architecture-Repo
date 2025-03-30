@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Attack logic that Instantiates an ExpandingAOE on shooting point and damaging all enemies caught in the clast
 [CreateAssetMenu(fileName = "AOEAttacker", menuName = "Tower Types/AOE Attacker")]
 public class AOEAttacker : AbstractAttacker
 {

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Container for values heavily used in the main script for logic
+//Also present on towers as an extra stat for when they use explosions
 [Serializable]
 public struct ExpandingAOEParameters
 {
@@ -14,7 +16,15 @@ public struct ExpandingAOEParameters
     public float expansionRadiusIncrement;
 }
 
-
+/*
+ * Explosion projectile that starts very small and expands to given size by an increment every frame
+ * Used on both single and AOE towers
+ * AOE towers use it an as aura originating from their shooting point
+ * Projectile towers use it to trigger an explosion at a contact point
+ * Visualized through the use of VFX
+ * It increases alongside a trigger collider, categorizing all enemies within
+ * Saves the enemies already hit by the effect as to not double dip on them
+ */
 [RequireComponent(typeof(SphereCollider))]
 public class ExpandingAOE : ProjectileType
 {

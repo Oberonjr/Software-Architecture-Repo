@@ -5,6 +5,14 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using NaughtyAttributes;
 
+/*
+ * Script that makes the grid upon which towers are placed
+ * Also used to get and check the Nodes in the grid
+ * Handles both grid preview for when trying to build a tower
+ * as well as editor options to visualize the grid and which nodes are occupied
+ * Also manages centering the tilemap under which the path is built at a specific position on the grid
+ * through editor variables
+ */
 public class GridManager : MonoBehaviour
 {
     private static GridManager _instance;
@@ -13,7 +21,7 @@ public class GridManager : MonoBehaviour
     [SerializeField]private Tilemap tilemap;
     [SerializeField]private int cellSize;
     [SerializeField] private GameObject gridPreviewPrefab;
-    private Node[,] grid;
+    private Node[,] _grid;
     
     
     public static GridManager Instance => _instance;
@@ -52,14 +60,13 @@ public class GridManager : MonoBehaviour
 
     void GenerateGrid()
     {
-        grid = new Node[gridSize.x, gridSize.y];
+        _grid = new Node[gridSize.x, gridSize.y];
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                //Debug.Log(y);
                 Vector3 worldPos = new Vector3(x * cellSize, 0, y * cellSize);
-                grid[x, y] = new Node(worldPos);
+                _grid[x, y] = new Node(worldPos);
             }
         }
     }
@@ -81,20 +88,17 @@ public class GridManager : MonoBehaviour
     {
         int x = Mathf.RoundToInt(worldPos.x / cellSize);
         int y = Mathf.RoundToInt(worldPos.z / cellSize);
-
-        //Debug.Log(x + ", " + y);
         
         if (x >= 0 && x < gridSize.x && y >= 0 && y < gridSize.y)
         {
-            return grid[x, y];
+            return _grid[x, y];
         }
-        Debug.LogWarning("No node found at given position.");
         return null;
     }
 
     void AlignTilemapToGrid()
     {
-        tilemap.transform.position = grid[gridAlignmentPosition.x, gridAlignmentPosition.y].GridPosition + Vector3.up * 0.5f;
+        tilemap.transform.position = _grid[gridAlignmentPosition.x, gridAlignmentPosition.y].GridPosition + Vector3.up * 0.5f;
     }
     
     List<GameObject> previewVisualizers = new List<GameObject>();
@@ -115,8 +119,8 @@ public class GridManager : MonoBehaviour
     {
         if(isPreviewing || gridPreviewPrefab == null) return;
         isPreviewing = true;
-        if(grid == null) GenerateGrid();
-        foreach (Node n in grid)
+        if(_grid == null) GenerateGrid();
+        foreach (Node n in _grid)
         {
             if (n.placedObject != null) continue;
             GameObject visual = Instantiate(gridPreviewPrefab, n.GridPosition, Quaternion.identity);
@@ -143,9 +147,9 @@ public class GridManager : MonoBehaviour
     [Button("Generate Grid Visuals")]
     public void VisualisePath()
     {
-        if(grid == null) GenerateGrid();
+        if(_grid == null) GenerateGrid();
         PopulatePath();
-        foreach (Node n in grid)
+        foreach (Node n in _grid)
         {
             GameObject visual = Instantiate(_gridVisualizerPrefab, n.GridPosition, Quaternion.identity);
             visual.transform.localScale = new Vector3(cellSize / 1.15f, cellSize / 1.15f, cellSize / 1.15f);
@@ -161,7 +165,7 @@ public class GridManager : MonoBehaviour
     [Button("Clear Grid Visuals")]
     public void ClearVisuals()
     {
-        grid = null;
+        _grid = null;
         foreach (GameObject go in pathVisualizers)
         {
             if (!Application.isPlaying)

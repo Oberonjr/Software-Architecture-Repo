@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//State in which building is disabled and enemies spawn until exhausted
 public class CombatState : IGameState
 {
     StateMachine stateMachine;

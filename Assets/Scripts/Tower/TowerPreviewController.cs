@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Stand-in for the base towers for when they're being built, showcasing the basics
+ * such as GFX and range
+ * They are dragged around the grid, snapping to it
+ * and if clicking on a valid node, they swap themselves out with the actual tower
+ * Currently their model being the same as the tower is hard-coded
+ */
 public class TowerPreviewController : MonoBehaviour
 {
     [SerializeField] private TowerController towerToSpawn;

@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Udar.SceneManager;
 
-
+//Has functions for scene changes that can be globally accessed
+//Kept through scenes as implementation is generic and useful in all scenes
 public class SceneSwitcherManager : MonoBehaviour
 {
     private static SceneSwitcherManager _instance;

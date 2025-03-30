@@ -3,6 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Reads all the keyboard inputs and broadcasts it
+ * Only broadcasts inputs during build phase
+ * Handles whether the game can build or not
+ * Also is responsible for getting the closest node (if any) to mouseClickPosition
+ */
 public class InputManager : MonoBehaviour
 {
     private static InputManager _instance;
@@ -29,7 +35,7 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        EventBus<ClickNodeEvent>.OnEvent += CheckClickedNode;
+        
         EventBus<ToggleHoverEvent>.OnEvent += ToggleHover;
         EventBus<StartBuildPhaseEvent>.OnEvent += EnableBuild;
         EventBus<StartWaveEvent>.OnEvent += DisableBuild;
@@ -37,7 +43,7 @@ public class InputManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        EventBus<ClickNodeEvent>.OnEvent -= CheckClickedNode;
+        
         EventBus<ToggleHoverEvent>.OnEvent -= ToggleHover;
         EventBus<StartBuildPhaseEvent>.OnEvent -= EnableBuild;
         EventBus<StartWaveEvent>.OnEvent -= DisableBuild;
@@ -97,7 +103,7 @@ public class InputManager : MonoBehaviour
         {
             return GridManager.Instance.GetNode(hit.point);
         }
-        Debug.LogWarning("No node found");
+        //Debug.LogWarning("No node found");
         return null;
     }
 
@@ -116,12 +122,5 @@ public class InputManager : MonoBehaviour
         EventBus<DeselectTowerEvent>.Publish(new DeselectTowerEvent());
     }
     
-    //TEMP FOR TESTING
-    void CheckClickedNode(ClickNodeEvent e)
-    {
-        if (e.clickNode.placedObject != null)
-        {
-            Debug.Log(e.clickNode.placedObject.name);
-        }
-    }
+   
 }

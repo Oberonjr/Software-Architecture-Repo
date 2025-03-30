@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Simple projectile that damages enemy on collision
 public class SimpleProjectile : ProjectileType
 {
     public override void EnemyContact(GameObject enemy)

@@ -4,6 +4,14 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+/*
+ * Main Manager of the game, handling the health, gameSpeed and stateMachine switches
+ * Has the values that dictate the total health and buildPhase timer
+ * Has functions used in various UI elements to manage the gameState
+ * Handles the buildPhase timer
+ * Handles which tower is currently being held for build Queue
+ * Handles tower deselection event for UI related things
+ */
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
@@ -14,8 +22,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int maxHealth;
     [SerializeField] private int buildTime;
-    private int _currentHealth;
 
+    private int _currentHealth;
     private TowerController _currentSelectedTower;
     private StateMachine _stateMachine;
 

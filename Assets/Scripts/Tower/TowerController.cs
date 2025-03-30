@@ -4,6 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/*
+ * Main tower script
+ * Contains all essential logic and refferences
+ * Acts as the refference point for each individual tower
+ * Handles logic such as upgrading, attacking, targeting and being clicked
+ * Uses IPointerClickHandler to register being clicked on as the Towers are quite tall
+ * and trying to get them by reading the clicked node at their base could end up being awkward
+ */
 public class TowerController : MonoBehaviour, IPointerClickHandler
 {
     private enum TargetingType
@@ -21,8 +29,8 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Transform _shootingPoint;
     
     private EnemyCheck _enemyCheck;
-    private RangeIndicatorManager _rangeIndicatorManager;
-    private TowerAnimationManager _animManager;
+    private RangeIndicatorHandler rangeIndicatorHandler;
+    private TowerAnimationHandler animHandler;
 
     private System.Action<Vector3> AttackTarget;
 
@@ -32,20 +40,20 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
     
     void Start()
     {
-        if (TryGetComponent(out TowerAnimationManager aM))
+        if (TryGetComponent(out TowerAnimationHandler aM))
         {
-            _animManager = aM;
+            animHandler = aM;
         }
         //Move all this to an OnTowerPlaced() that triggers from an event
         InvokeRepeating(nameof(AttackRepeating), 0f, towerStats.stats.towerAttackInterval);
         _enemyCheck = GetComponentInChildren<EnemyCheck>();
-        _rangeIndicatorManager = GetComponentInChildren<RangeIndicatorManager>();
+        rangeIndicatorHandler = GetComponentInChildren<RangeIndicatorHandler>();
         _enemyCheck.Range.radius = towerStats.stats.towerRange;
         _enemyCheck.OnEnemyEnterRange += UpdateEnemy;
         _enemyCheck.OnEnemyLeaveRange += RemoveEnemyTarget;
-        if (_animManager != null)
+        if (animHandler != null)
         {
-            AttackTarget += _animManager.RotateToTarget;
+            AttackTarget += animHandler.RotateToTarget;
         }
     }
 
@@ -63,7 +71,7 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
 
     public void ToggleRangeIndicator()
     {
-        _rangeIndicatorManager.ToggleRangeIndicator(this);
+        rangeIndicatorHandler.ToggleRangeIndicator(this);
     }
     
     private void UpdateEnemy(Transform firstEnemy, Transform lastEnemy, Transform closestEnemy, List<EnemyStats> allEnemies)
@@ -119,7 +127,7 @@ public class TowerController : MonoBehaviour, IPointerClickHandler
                 if(target[i] != null) targetPositions.Add(target[i].gameObject);
             }
 
-            if (_animManager != null)
+            if (animHandler != null)
             {
                 foreach (GameObject targetLocation in targetPositions)
                 {
